@@ -24,7 +24,7 @@ In a Stroop task, participants are presented with a list of words, with each wor
 The original data is stored in wide format, with 2 collumn "Congruent" and "Incongruent". Let's remove the capital character first:
 ```{r The data, echo=FALSE}
 # Load the Data
-sef <- "https://raw.githubusercontent.com/Linhnguyen14/data/master/thestroopeffect/stroopdata.csv"
+sef <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/thestroopeffect/stroopdata.csv"
 sef <- read.csv(text = getURL(sef))
 names(sef) <- tolower(names(sef)) 
 head(sef)
@@ -62,7 +62,7 @@ The proposed statistical test:
 
 It is essential to look at the data (if you already have), or imagine how it would look like, before deciding on the kind of statistical test:
 
-```{r Sample Histograms, echo=FALSE, warning=FALSE, message=FALSE}
+```{r Sample_Histograms, warning=FALSE, message=FALSE}
 incongruent_his <- ggplot(aes(x = congruent), data = sef) + 
                     geom_histogram(fill = "darkorange") +
                     theme(panel.background = element_rect(fill = 'white'),
@@ -105,7 +105,7 @@ The plots better visualized our point in the above section:
 
 - The 2 boxes are in 2 distinct different position.
 
-```{r The box plots, echo = FALSE }
+```{r The_box_plots, warning=FALSE, message=FALSE}
 ggplot(aes(x = type, y = time, fill = type), data =seflong) +
   geom_boxplot() +
   stat_summary(fun.y=mean, geom="point",shape=2,size=4,fill="yellow") +
