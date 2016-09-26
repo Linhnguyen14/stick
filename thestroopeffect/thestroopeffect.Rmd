@@ -30,71 +30,66 @@ names(sef) <- tolower(names(sef))
 head(sef)
 ```
 
-For the sake of flexibility, we shall add another format, a long one.
+Add a long format for flexibility:
 ```{r The data2, echo=FALSE}
 seflong <- gather(sef, "type", "time")
 head(seflong)
 ```
+\pagebreak
 
 ### The variables:
 
-Independent variables:
-
-- 1 measurement variable: the time it took to read a list of words.
-- 1 nominal variable: type of words (congruent or incongruent).
-
-Dependent variables:
-The time it takes to name the ink colors of a list of words.
+- Independent variables: type of words (nominal).
+- Dependent variables: The time it took to name the ink colors of a list of words (measurement).
 
 ### The hypothesis and the test:
 
 The hypothesis:
 
-Null hypothesis: There is no significant different between the means of the time it took to read a list of words for the two Congruent and Incongruent categories.
+Null hypothesis: There is no significant difference between the 2 population means response time.
 
 H0: μ1 = μ2
 
-Alternative hypothesis: There is a significant different between the means of the time it took to read a list of words for the two Congruent and Incongruent categories.
+Alternative hypothesis: There is a significant difference between the 2 population means response time.
 
 Ha: μ1 != μ2
 
 The proposed statistical test:
 
-It is essential to look at the data (if you already have), or imagine how it would look like, before deciding on the kind of statistical test:
+- The proposed test: Dependent t-test for paired samples
+- Type:  two tailed p-value, since we're interested to know if there was difference between the population means, so either direction will do.
 
-```{r Sample_Histograms, warning=FALSE, message=FALSE}
-incongruent_his <- ggplot(aes(x = congruent), data = sef) + 
-                    geom_histogram(fill = "darkorange") +
-                    theme(panel.background = element_rect(fill = 'white'),
-                          plot.background = element_rect(fill = 'white')) +
-                    xlim(8,35) +
-                    ylim(0,5)
-congruent_his   <- ggplot(aes(x = incongruent), data = sef) + 
-                    geom_histogram(fill = "deepskyblue") +
-                    theme(panel.background = element_rect(fill = 'white'),
-                          plot.background = element_rect(fill = 'white')) +
-                    xlim(8, 35) +
-                    ylim(0,5)
+Assumptions:
+- The sample size: 48 observations of 2 variables, considered as small.
 
-grid.arrange(incongruent_his, congruent_his)
+- The data structure: balanced design
 
+- The sample distribution: considered as normal distribution (see the qq plot below)
+
+```{r Sample_Histograms, echo = FALSE,warning=FALSE, message=FALSE}
+ggplot(data = sef, aes(sample = congruent))+
+  stat_qq(color = 'green', size = 2.5)+
+  stat_qq(aes(sample = incongruent), color = 'red', size = 2.5)
 ```
 
-- The sample size: balanced design, 24 for each sample, considered as small.
-- The distribution: light right-skewed for both sample
-
-Based on the sample size, distribution, and number of variables, it is fitting to use Student's t–test for two samples, with the proven rate of false positive less than 5% even for very small sample, as long as the homogeneity of variance is true.
 
 ### Descriptive statistics
-We could see it quite clearly with this one:
 
 - The mean and the median are almost identical for the congruent, and varied a little bit for the incongruent (because of the 2 outliers, we do expec them to get closer, when removed).
 
 - The min and max value from the 2 sample are quite far apart.
 
-```{r Descriptive statistics}
+```{r Descriptive statistics,echo = FALSE,warning=FALSE, message=FALSE}
 summary(sef)
 ```
+- The standard deviation:
+```{r SD,echo = FALSE,warning=FALSE, message=FALSE}
+congruent <- sd(sef$congruent)
+incongruent <- sd(sef$incongruent)
+data.frame(congruent, incongruent)
+```
+
+\pagebreak
 
 ### The plot
 The plots better visualized our point in the above section:
@@ -113,18 +108,20 @@ ggplot(aes(x = type, y = time, fill = type), data =seflong) +
         plot.background = element_rect(fill = 'white')) 
 ```
 
+\pagebreak
+
 ### The statistical test
 ```{r statistical test}
-t.test(time ~ type, data=seflong, var.equal=TRUE, conf.level=0.95)
+t.test(time ~ type, data=seflong, paired = TRUE)
 ```
 
 Test result:
 
-- t value: -6.5323
+- t value: -8.0207
 
-- df: 46
+- df: 23
 
-- p value: 4.595e-08
+- p value: 4.103e-08
 
 - Reject Null hypothesis.
 
