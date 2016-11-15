@@ -1,25 +1,35 @@
 ---
-title: "petrolprice - EDA"
+title: 'Exploratory Data Analysis: On the differences in petrol price between Vietnam
+  and US.'
 author: "LinhNguyen"
 date: "Monday, September 05, 2016"
 output: pdf_document
 ---
-Hey guys, thanks for your interest. In this analysis, we're going to explore the different between petrol price in Vietnam and in US.
+Hey guys, thanks for your interest. In this analysis, I'm going to explore the different between petrol price in Vietnam and in US.
 
 For most Vietnamese who are living in Vietnam, we should all have the assumption, that we are paying so much more than our friends out there. But we never know how much...
 
-That's the purpose of this exploratory data analysis, we are going to take a peek, at what the data has to tell us.
+That's the purpose of this exploratory data analysis, I'm going to take a peek, at what the data has to tell us.
 
-# Library
-```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
-library(xlsx) 
+# LIBRARY
+```{r message=FALSE, warning=FALSE, packages}
 library(ggplot2)
 library(tidyr)
 library(dplyr)
 library(RCurl)
 ```
 
-# The data
+# THE STRATEGY
+
+So the idea is to let the data speak for itself:
+
+- Since the price of Vietnam's petrol are controled by only one source, it will be best to be  represented by a line graph.
+- As for the US, there are a lot of people selling petrol, and the price varied from location to location, so the idea is that, I kind of want to let the audiences see the noises, the low, and the high of the prices, while not letting it become too much of a distraction.
+- I want to show something that would sum the noise up, ideally a mean line in this case.
+- I want to translate the US's price into vietnamese. To do so, I'll have to take in consideration the currency exchange rate of that given time.
+
+To solve this puzzle, I decided to used to data below, which I've uploaded the datasets to github, so no, you don't have to download it.
+
 - The US's petrol data are taken from the US Energy Information Association, available at:
 http://www.eia.gov/petroleum/gasdiesel/
 
@@ -29,37 +39,54 @@ http://www.petrolimex.com.vn/
 - The currency exchange rate history are taken from oanda, available at:
 https://www.oanda.com/currency/average
 
-```{r Load the data and some preprocess}
-# Vietnam's
-## Oi, remember to set path for this one
-oilvn <- "/gasolinevn.xlsx"
-oilvn <- read.xlsx(oilvn, 1)
+# THE DATASETS
+
+The datasets are quite clean already, some preprocess (reformat) and we're good to go.
+
+There are a lot type of petrol availabe. I choosed Ron91 - Ron92 as the main data type for this analysis, because of popularity and the availability of the data.
+
+```{r Vietnam petrol data}
+# Get the data from github
+oilvn <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/gasolinevn.csv"
+oilvn <- read.csv(text = getURL(oilvn))
+
+# Convert the format of the date column, from "str" to "date"
 names(oilvn)[1] <- "date"
+oilvn$date <- as.Date(oilvn$date, format = "%d/%m/%Y")
+
+# Added a column containing the year of the date
 oilvn$year <- as.numeric(strftime(oilvn$date, format = "%Y"))
-
-# US's Conventional midgrade petrol (Ron91 - Ron92)
-rawus <- "https://raw.githubusercontent.com/Linhnguyen14/data/master/oilprice/gasolineus.csv"
-oilus <- read.csv(text = getURL(rawus))
-colnames(oilus) <- as.factor(c(1:21))
-
-# History of currency rate (USD - VND)
-curhistory <- "https://raw.githubusercontent.com/Linhnguyen14/data/master/oilprice/curhistory.csv"
-curhistory <- read.csv(text = getURL(curhistory))
-
-# I know, folks, we all love csv. But hey, sometimes, life gives you .xlsx.
+head(oilvn, n = 2)
 ```
 
-# The wrangle
-Got to admit it, this one really took a lot of effort, it was fun, tho.
+The US petrol data contain data from 20 locations in the US, here I'm only interested in knowing the date and the price, not the location, so I will just discount all of those unnecessary detail.
 
-So the idea is that, we want to let the data speak for itself:
-- Since the price of Vietnam's petrol are controled by only one source, it will be best represent by a line graph.
-- As for the US, there are a lot of people selling petrol, and the price varied from location to location, so the idea is that, we kind of want to let the audiences see the noises, the low, and the high of the prices, while not letting it become too much of a distraction.
-- We want to show something that would sum the noise up, ideally a mean line in this case.
-- We want to translate the US's price into vietnamese. To do so, we'll have to take in consideration the currency exchange rate of that given time.
+```{r US petrol data}
+# US's Conventional midgrade petrol (Ron91 - Ron92)
+rawus <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/gasolineus.csv"
+oilus <- read.csv(text = getURL(rawus))
+
+# Arrange column names running from 1 to 21, since I'm not intereted in the local location.
+colnames(oilus) <- as.factor(c(1:21))
+head(oilus, n = 2)
+```
+
+This dataset from oanda is the best I could get my hands on, a bit tricky to use, might created some bias because of the way I handled it, but in the long run, those bias should be nullified. For now it is good as it is, I will wrangle it later.
+
+```{r Currency exchange rate}
+# History of currency rate (USD - VND)
+curhistory <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/curhistory.csv"
+curhistory <- read.csv(text = getURL(curhistory))
+```
 
 
-```{r the Wrangle}
+# THE DATA WRANGLING
+
+The US petrol data are in wide format.
+
+First, I reformat them to the more favourable long format, and while I'm at it, I also reformat  the date variable to type "date" 
+
+```{r}
 # Wrangling with the US's petrol data
 # Turn the data from wide format to long format
 oilus <- gather(oilus,"location","price", 2:21)
@@ -72,13 +99,28 @@ oilus$date <- as.Date(date, format = "%m/%d/%Y")
 oilus$year <- as.numeric(strftime(oilus$date, format = "%Y"))
 oilus$month <- as.numeric(strftime(oilus$date, format = "%m"))
 
-# Group them by date, and take the mean of the oil price, since price fluctuate from loc to loc
+head(oilus)
+```
+
+Group the oilus data by date, and take the mean of the oil price, since price fluctuate from loc to loc, then assign them to a new dataframe "oilusmean"
+
+```{r}
 oilusmean <- oilus %>%
   group_by(date) %>%
   summarise(mean = mean(price), sum = sum(price), n = n()) %>%
   arrange(date)
 oilusmean$year <- as.numeric(strftime(oilusmean$date, format = "%Y"))
 oilusmean$month <- as.numeric(strftime(oilusmean$date, format = "%m"))
+head(oilus)
+```
+
+The dataset doesn't have closing price, only "bid" and "ask", so I took the mean of it. It might be a bit away from the actual data, but in the long run, the differences is too small to make it a problem.
+
+I created 2 additional columns to store the months and years data, I will be using them as matching point to join the 2 datasets oilus and curhistory together.
+
+
+```{r the Wrangle}
+
 
 # Wrangling the currency rate history:
 # Reformat the date:
@@ -104,7 +146,8 @@ oilusmean$priceinvnd <- oilusmean$price * oilusmean$mean * litregallon
 oilus$priceinvnd <- oilus$price.x * oilus$price.y * litregallon
 ```
 
-# The plot:
+# THE PLOT
+
 We kind of see it in here, the Vietnam's price are deliberately kept high, much much higher than the price.
 
 Let us keep in mind, that gas companies in the US has to pay up to 20% in term of marketing.
@@ -127,22 +170,20 @@ ggplot(aes(x = date, y = priceinvnd), data = subset(oilus, year >2011)) +
             size = 1, colour = "forestgreen") +
   theme(panel.background = element_rect(fill = 'white'),
         plot.background = element_rect(fill = 'white')) 
-
-  
-
 ```
 
 
-### The wrangling, season 2
+# THE REVISED STRATEGY
+
+The idea is that, unlike the US's price, where we could either use a line graph or a scatter plot to represent the data, the Vietnam's price are set by only one party, once setted, it will stay fixed, tilled setted again.
+
+Which means, neither a line-graph nor a scatter plot could accuraely represent the movement of price in vietnam. However a modified version of the line-graph will make it, where all the line are either parallel to the horizontal or the vertical axis.
+
 ```{r}
 # Wrangle the oilvn price
-# Wrangle the oilvn price
-# I'd advised you to stay out of this section, since it really is difficult to understand, even for me, read at your own risk!
 # Too much information, let's only take the data that we use, which is the Ron.92.II.V1, because we could say, that it is the most regular used petrol type in vietnam.
 oilvn <- subset(oilvn, !is.na(oilvn$Ron.92.II.V1), select = c(date,Ron.92.II.V1))
 
-# The idea is that, unlike the US's price, where we could either use a line graph or a scatter plot to represent the data, the Vietnam's price are set by only one party, once setted, it will stay fixed, tilled setted again.
-# Which means, neither a line-graph nor a scatter plot could accuraely represent the movement of price in vietnam. However a modified version of the line-graph will make it, where all the line are either parallel to the horizontal or the vertical line.
 # The simplest solution I could think of to solve this, is to create a line-graph that goes throw some modified version of the data point, where:
 # Original data:
 # date         value
@@ -179,7 +220,7 @@ datedata <- subset(oilvn, select = c(id, date2))
 pricedata <- subset(oilvn, select = c(id, Ron.92.II.V1))
 
 # We remove the first row of datedata and the last row of pricedata, then merge them together.
-# The end result: (this is really confusing, like I warned ya)
+# The end result: 
 # c - 1   c   b - 1   b  a - 1   a   (timeline going forward)
 # NA      g   g       f  f       e
 # Remove the first row of pricedata
@@ -204,9 +245,11 @@ petrovn$year <- as.numeric(strftime(petrovn$date, format = "%Y"))
 
 ```
 
-### The plot, version final
-Okay, yes, this is one ugly plot, I agree.
-But hey, it is the one that could best represent reality, so I'd go with this one.
+# THE FINAL PLOT
+
+This should be the most accurately plot that I could draw. Although this plot could show just how overprice the Vietnam's petrol are compared to the US's, I believe that it is not all there is to it.
+
+There should be additional insights, if we could break through the operation and taxation barriers. There should be a much wider gap, I believe.
 
 ```{r}
 ggplot(aes(x = date, y = priceinvnd), data = subset(oilus, year > 2011)) + 
