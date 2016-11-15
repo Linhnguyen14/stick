@@ -1,14 +1,19 @@
 Country: Vietnam
+
 City: Saigon
+
 Data avaiable at: https://mapzen.com/data/metro-extracts/metro/ho-chi-minh-city_vietnam/
+
 Additional note: Ho Chi Minh is the current name of the city. However, I prefer the name Saigon, therefore I shall use it in my analysis.
 
 ![alt tag](https://cloud.githubusercontent.com/assets/10266642/20295749/73e08b62-ab39-11e6-83cf-6bd9e75d00f8.JPG)
 
 
+The top 1% contributors contribute up to 87% of all contents. And they are human, not bots.
+
+
 ![alt tag](https://cloud.githubusercontent.com/assets/10266642/20295827/f5852916-ab39-11e6-9497-3c8424f012e1.png)
 
-The top 1% contributors contribute up to 87% of all contents. And they are human, not bots.
 
 And no, that is a very bad news:
 - It's good and all, when the top contributors contribute. But what happened, when they stopped? 
