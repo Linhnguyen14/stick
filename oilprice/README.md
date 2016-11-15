@@ -1,4 +1,1 @@
-Hello, and welcome.
-
-1. oilprice: An exploratory data analysis on the different in gasoline's price in Vietnam and US. (Should totally check it out)
-2. thestroopeffect: A simple statistics test on the stroop effect, a popular psychological test.
+https://cloud.githubusercontent.com/assets/10266642/20295049/3624d070-ab35-11e6-8951-8d22edc530ea.png
