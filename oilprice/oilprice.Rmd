@@ -181,10 +181,12 @@ Which means, neither a line-graph nor a scatter plot could accuraely represent t
 
 ```{r}
 # Wrangle the oilvn price
-# Too much information, let's only take the data that we use, which is the Ron.92.II.V1, because we could say, that it is the most regular used petrol type in vietnam.
+# Too much information, let's only take the data that we use, which is the Ron.92.II.V1, 
+# because we could say, that it is the most regular used petrol type in vietnam.
 oilvn <- subset(oilvn, !is.na(oilvn$Ron.92.II.V1), select = c(date,Ron.92.II.V1))
 
-# The simplest solution I could think of to solve this, is to create a line-graph that goes throw some modified version of the data point, where:
+# The simplest solution I could think of to solve this, is to create a line-graph that 
+# goes throw some modified version of the data point, where:
 # Original data:
 # date         value
 # a,            e
@@ -212,14 +214,18 @@ oilvn <- subset(oilvn, !is.na(oilvn$Ron.92.II.V1), select = c(date,Ron.92.II.V1)
 # Add the modified date collumn
 oilvn$date2 <- as.Date(oilvn$date) - 1
 
-# To keep track of them, we introduced a new id collumn, which run from 1 to 107, I did originally noticed the "row.names", but i don't know, tried a few times, couldn't really used it. Will invest some more time to study it, but not now.
+# To keep track of them, we introduced a new id collumn, which run from 1 to 107, I did
+# originally noticed the "row.names", but i don't know, tried a few times, couldn't really 
+# used it. Will invest some more time to study it, but not now.
 oilvn$id <- c(1:107)
 
-# We create 2 different data.frame to manipulate the data, and will merge them together later.
+# We create 2 different data.frame to manipulate the data, and will merge them together 
+# later.
 datedata <- subset(oilvn, select = c(id, date2))
 pricedata <- subset(oilvn, select = c(id, Ron.92.II.V1))
 
-# We remove the first row of datedata and the last row of pricedata, then merge them together.
+# We remove the first row of datedata and the last row of pricedata, then merge them 
+# together.
 # The end result: 
 # c - 1   c   b - 1   b  a - 1   a   (timeline going forward)
 # NA      g   g       f  f       e
@@ -250,6 +256,14 @@ petrovn$year <- as.numeric(strftime(petrovn$date, format = "%Y"))
 This should be the most accurately plot that I could draw. Although this plot could show just how overprice the Vietnam's petrol are compared to the US's, I believe that it is not all there is to it.
 
 There should be additional insights, if we could break through the operation and taxation barriers. There should be a much wider gap, I believe.
+
+Putting that aside, this plot was able to show that:
+
+- There was a massive gap in petrol price between the 2 country, shown clearly starting from 2012.
+- 2012 is the mark, when Vietnam's petrol price was actively kept well beyond US's petrol price.
+- Before 2012, the Vietnam's price seems to be in line with the US, sometimes even lower, but let us not forget, that by default, Petrolimex have an advantage in cost over US's firm.
+- One assumption, is that it all started, with the 2009 crisis, it hit petrolimex hard, and they had to ramp up the petrol price to make up for the lost incurred by bad investments.
+
 
 ```{r}
 ggplot(aes(x = date, y = priceinvnd), data = subset(oilus, year > 2011)) + 
