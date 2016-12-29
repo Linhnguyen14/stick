@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Project_Enron.v.1.8</title>
+<title>Project_Enron</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -11789,7 +11789,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="I.-STRUCTURED-DATA-SET">I. STRUCTURED DATA SET<a class="anchor-link" href="#I.-STRUCTURED-DATA-SET">&#182;</a></h1>
+<h1 id="STRUCTURED-DATA-SET">STRUCTURED DATA SET<a class="anchor-link" href="#STRUCTURED-DATA-SET">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11804,19 +11804,21 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">feature_format</span> <span class="kn">import</span> <span class="n">featureFormat</span><span class="p">,</span> <span class="n">targetFeatureSplit</span>
 
 <span class="n">data_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;final_project_dataset.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="p">)</span>
 
-<span class="n">features_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bonus&quot;</span><span class="p">,</span> <span class="s1">&#39;deferral_payments&#39;</span><span class="p">,</span> <span class="s1">&#39;deferred_income&#39;</span><span class="p">,</span> <span class="s1">&#39;director_fees&#39;</span><span class="p">,</span> <span class="s1">&#39;exercised_stock_options&#39;</span><span class="p">,</span> 
-                 <span class="s2">&quot;expenses&quot;</span><span class="p">,</span> <span class="s1">&#39;from_messages&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_advances&#39;</span><span class="p">,</span><span class="s1">&#39;long_term_incentive&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;restricted_stock&#39;</span><span class="p">,</span> 
-                 <span class="s1">&#39;restricted_stock_deferred&#39;</span><span class="p">,</span> <span class="s1">&#39;salary&#39;</span><span class="p">,</span> <span class="s1">&#39;to_messages&#39;</span><span class="p">,</span> <span class="s1">&#39;total_payments&#39;</span><span class="p">,</span> <span class="s1">&#39;total_stock_value&#39;</span><span class="p">]</span>
+<span class="n">features_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bonus&quot;</span><span class="p">,</span> <span class="s1">&#39;deferral_payments&#39;</span><span class="p">,</span> <span class="s1">&#39;deferred_income&#39;</span><span class="p">,</span> 
+                 <span class="s1">&#39;director_fees&#39;</span><span class="p">,</span> <span class="s1">&#39;exercised_stock_options&#39;</span><span class="p">,</span> 
+                 <span class="s2">&quot;expenses&quot;</span><span class="p">,</span> <span class="s1">&#39;from_messages&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_advances&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;long_term_incentive&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;restricted_stock&#39;</span><span class="p">,</span> 
+                 <span class="s1">&#39;restricted_stock_deferred&#39;</span><span class="p">,</span> <span class="s1">&#39;salary&#39;</span><span class="p">,</span> <span class="s1">&#39;to_messages&#39;</span><span class="p">,</span> 
+                 <span class="s1">&#39;total_payments&#39;</span><span class="p">,</span> <span class="s1">&#39;total_stock_value&#39;</span><span class="p">]</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">featureFormat</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">features_list</span><span class="p">)</span>
-<span class="n">labels</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">targetFeatureSplit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11826,7 +11828,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s1">&#39;Total number of data points: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_dict</span><span class="p">))</span>
@@ -11836,8 +11838,9 @@ div#notebook {
         <span class="n">POI</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="n">non_POI</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span> <span class="o">-</span> <span class="n">POI</span>
 
-<span class="k">print</span> <span class="s1">&#39;alocation across class (POI/non-POI): {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">POI</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">non_POI</span><span class="p">))</span>
-<span class="k">print</span> <span class="s1">&#39;number of features used: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">features_list</span><span class="p">))</span>
+<span class="k">print</span> <span class="p">(</span><span class="s1">&#39;Alocation across class (POI/non-POI): {}&#39;</span><span class="o">.</span>
+       <span class="n">format</span><span class="p">(</span><span class="n">POI</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">non_POI</span><span class="p">)))</span>
+<span class="k">print</span> <span class="s1">&#39;Number of features used: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">features_list</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -11851,8 +11854,8 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of data points: 146
-alocation across class (POI/non-POI): 0.140625
-number of features used: 16
+Alocation across class (POI/non-POI): 0.140625
+Number of features used: 16
 </pre>
 </div>
 </div>
@@ -11863,7 +11866,7 @@ number of features used: 16
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">data_avail</span> <span class="o">=</span> <span class="p">{}</span>
@@ -11882,7 +11885,7 @@ number of features used: 16
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[46]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11915,15 +11918,15 @@ number of features used: 16
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The median of allocation across data points (non-missing/ missing) are 0.57.
-Therefore, I defined features with many missing values as any features that have less than 0.57 available data points.</p>
+<p>The median of allocation across data points (non-missing/ missing) are 0.57.</p>
+<p>Therefore, I defined features with many missing values as any features that have less than 0.57 available data points.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">features_with_many_nan</span> <span class="o">=</span> <span class="mi">0</span>
@@ -11933,8 +11936,10 @@ Therefore, I defined features with many missing values as any features that have
     <span class="k">if</span> <span class="p">(</span><span class="n">data_avail</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)))</span> <span class="o">&lt;</span> <span class="mf">0.57</span><span class="p">:</span>
         <span class="n">features_with_many_nan</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data_avail</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
-<span class="k">print</span> <span class="s1">&#39;median of data points available: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data_dict</span><span class="p">))</span>
-<span class="k">print</span> <span class="s1">&#39;features with many missing values: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">features_with_many_nan</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s1">&#39;Median of data points available: {}&#39;</span>
+       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)))</span>
+<span class="k">print</span> <span class="p">(</span><span class="s1">&#39;Features with many missing values: {}&#39;</span>
+       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">features_with_many_nan</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -11947,8 +11952,8 @@ Therefore, I defined features with many missing values as any features that have
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>median of data points available: 0.58904109589
-features with many missing values: 7
+<pre>Median of data points available: 0.58904109589
+Features with many missing values: 7
 </pre>
 </div>
 </div>
@@ -11980,16 +11985,16 @@ features with many missing values: 7
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">prepare_plotting_data</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">features_list</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Given the input_data, which is a dict of dict, extract feature one by one</span>
-<span class="sd">    from the list of given features_list.</span>
+<span class="sd">    Given the input_data, which is a dict of dict, extract feature </span>
+<span class="sd">    one by one from the list of given features_list.</span>
 <span class="sd">    Reformat it (remove NaN and 0)</span>
-<span class="sd">    Return a pandas dataframe of the long format, containing these fields:</span>
-<span class="sd">    (feature, poi, value)</span>
+<span class="sd">    Return a pandas dataframe of the long format, containing </span>
+<span class="sd">    these fields: (feature, poi, value)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     
     <span class="n">features_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;poi&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;feature&#39;</span><span class="p">:</span> <span class="p">[]})</span>
@@ -12725,13 +12730,14 @@ tFQKuoiIiIiIiJZKQRcREREREdFSKegiIiIiIiJa6v8AZRDsk7TiawkAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">outliers_identifier</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Given a numpy array data, identify the outliers according to the input IQRs ranges,</span>
-<span class="sd">    return a list containing the index of all the outliers</span>
+<span class="sd">    Given a numpy array data, identify the outliers according to </span>
+<span class="sd">    the input IQRs ranges, return a list containing the index of </span>
+<span class="sd">    all the outliers</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># Calculate the q25, q75 and the IQR</span>
     <span class="n">q75</span><span class="p">,</span> <span class="n">q25</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="mi">75</span> <span class="p">,</span><span class="mi">25</span><span class="p">])</span>
@@ -12740,7 +12746,8 @@ tFQKuoiIiIiIiJZKQRcREREREdFSKegiIiIiIiJa6v8AZRDsk7TiawkAAAAASUVORK5CYII=
     <span class="n">threshold_high</span> <span class="o">=</span> <span class="n">q75</span> <span class="o">+</span> <span class="n">iqr</span><span class="o">*</span><span class="n">distance</span>
     <span class="n">threshold_low</span> <span class="o">=</span> <span class="n">q25</span> <span class="o">-</span> <span class="n">iqr</span><span class="o">*</span><span class="n">distance</span>
     
-    <span class="c1"># Subset the outliers, which are either lower than threshold_low, or higher than threshold_high</span>
+    <span class="c1"># Subset the outliers, which are either lower than threshold_low, </span>
+    <span class="c1"># or higher than threshold_high</span>
     <span class="n">outliers</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">threshold_high</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">threshold_low</span><span class="p">)]</span>
     <span class="n">outliers_index</span> <span class="o">=</span> <span class="p">[]</span>
     
@@ -12748,7 +12755,8 @@ tFQKuoiIiIiIiJZKQRcREREREdFSKegiIiIiIiJa6v8AZRDsk7TiawkAAAAASUVORK5CYII=
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span> <span class="o">==</span> <span class="n">datapoint</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">outliers_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span> <span class="o">==</span> <span class="n">datapoint</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="p">[</span><span class="n">outliers_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datapoint_in_list</span><span class="p">)</span> <span class="k">for</span> <span class="n">datapoint_in_list</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span> <span class="o">==</span> <span class="n">datapoint</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="k">for</span> <span class="n">datapoint_in_list</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span> <span class="o">==</span> <span class="n">datapoint</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">outliers_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datapoint_in_list</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">outliers_index</span>
 </pre></div>
 
@@ -12770,7 +12778,7 @@ tFQKuoiIiIiIiJZKQRcREREREdFSKegiIiIiIiJa6v8AZRDsk7TiawkAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Add id to the data_dict</span>
@@ -12781,33 +12789,37 @@ tFQKuoiIiIiIiJZKQRcREREREdFSKegiIiIiIiJa6v8AZRDsk7TiawkAAAAASUVORK5CYII=
 
 <span class="k">def</span> <span class="nf">remove_outliers</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">features_list</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Given the input_data, which is a dict of dict, extract feature one by one</span>
-<span class="sd">    from the list of given features_list.</span>
+<span class="sd">    Given the input_data, which is a dict of dict, extract feature </span>
+<span class="sd">    one by one from the list of given features_list.</span>
 <span class="sd">    Reformat it (remove NaN and 0)</span>
 <span class="sd">    Find and remove the outliers</span>
-<span class="sd">    Return a pandas dataframe of the long format, containing these fields:</span>
-<span class="sd">    (id,feature, poi, value)</span>
+<span class="sd">    Return a pandas dataframe of the long format, containing </span>
+<span class="sd">    these fields: (id,feature, poi, value)</span>
 <span class="sd">    </span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">cleaned_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;poi&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;feature&#39;</span><span class="p">:</span> <span class="p">[]})</span>
+    <span class="n">cleaned_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[],</span> 
+                                 <span class="s1">&#39;poi&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;feature&#39;</span><span class="p">:</span> <span class="p">[]})</span>
     <span class="n">total_deleted_points</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features_list</span><span class="p">:</span>
         <span class="c1"># Extract feature information, stored them under long format</span>
         <span class="c1"># with corresponding &#39;poi&#39; and &#39;id&#39; data, remove &#39;NaN&#39; and zeroes.</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">featureFormat</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;poi&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">feature</span><span class="p">],</span> <span class="n">remove_any_zeroes</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">featureFormat</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;poi&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">feature</span><span class="p">],</span> 
+                             <span class="n">remove_any_zeroes</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         
         <span class="c1"># Take out the feature data</span>
         <span class="n">extracted_feature_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
         
         <span class="c1"># Use the function outliers_identifier to identify the outliers</span>
-        <span class="n">outliers_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">outliers_identifier</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">extracted_feature_data</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+        <span class="n">outliers_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">outliers_identifier</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> 
+                                             <span class="n">extracted_feature_data</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
         
         <span class="c1"># Remove duplicate values</span>
         <span class="n">outliers_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">outliers_index</span><span class="p">)</span>
         
-        <span class="c1"># Remove the datapoint according to the index stored in outliers_index</span>
-        <span class="c1"># deleted_points will record the number of deletions, and serve as adjustment point,</span>
-        <span class="c1"># since the index will move up with each deletion.</span>
+        <span class="c1"># Remove the datapoint according to the index stored in </span>
+        <span class="c1"># outliers_index. Deleted_points will record the number </span>
+        <span class="c1"># of deletions, and serve as adjustment point, since</span>
+        <span class="c1"># the index will move up with each deletion.</span>
         <span class="n">deleted_points</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">datapoints</span> <span class="ow">in</span> <span class="n">outliers_index</span><span class="p">:</span>
             <span class="n">datapoints</span> <span class="o">=</span> <span class="n">datapoints</span> <span class="o">-</span> <span class="n">deleted_points</span>
@@ -12824,7 +12836,8 @@ tFQKuoiIiIiIiJZKQRcREREREdFSKegiIiIiIiJa6v8AZRDsk7TiawkAAAAASUVORK5CYII=
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span>
         <span class="n">cleaned_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">cleaned_data</span><span class="p">,</span> <span class="n">data</span><span class="p">])</span>
     <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;removed {} outliers out of {} data points&#39;</span>
-           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_deleted_points</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cleaned_data</span><span class="p">)</span> <span class="o">+</span> <span class="n">total_deleted_points</span><span class="p">)))</span>
+           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_deleted_points</span><span class="p">,</span> 
+                   <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cleaned_data</span><span class="p">)</span> <span class="o">+</span> <span class="n">total_deleted_points</span><span class="p">)))</span>
     <span class="k">return</span> <span class="n">cleaned_data</span>
 <span class="n">outliers_free_data</span> <span class="o">=</span> <span class="n">remove_outliers</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">features_list</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">outliers_free_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -13634,25 +13647,32 @@ RK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Pivot to wide pandas using &#39;id&#39;, &#39;feature&#39; and &#39;value&#39;. &#39;poi&#39; is temporarily</span>
-<span class="c1"># left behind, I will go back in pick it up later</span>
-<span class="n">outliers_free_data_w</span> <span class="o">=</span> <span class="n">outliers_free_data</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Pivot to wide pandas using &#39;id&#39;, &#39;feature&#39; and &#39;value&#39;. &#39;poi&#39; is </span>
+<span class="c1"># temporarily left behind, I will go back in pick it up later</span>
+<span class="n">outliers_free_data_w</span> <span class="o">=</span> <span class="n">outliers_free_data</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> 
+                                                <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> 
+                                                <span class="n">values</span><span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
 
 <span class="c1"># Reset the index, but keep the id column</span>
 <span class="n">outliers_free_data_w</span> <span class="o">=</span> <span class="n">outliers_free_data_w</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="c1"># Pick up the &#39;poi&#39; data left behind earlier</span>
-<span class="n">outliers_free_data_w</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">outliers_free_data_w</span><span class="p">,</span> <span class="n">outliers_free_data</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;poi&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">outliers_free_data_w</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">outliers_free_data_w</span><span class="p">,</span> 
+                                <span class="p">(</span><span class="n">outliers_free_data</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;poi&#39;</span><span class="p">]]</span>
+                                 <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()),</span> 
+                                <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
 
-<span class="c1"># Store the name of the features and labels, these information will be used later.</span>
-<span class="n">feature_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">outliers_free_data_w</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers_free_data_w</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># Store the name of the features and labels, these information </span>
+<span class="c1"># will be used later.</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">outliers_free_data_w</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                 <span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers_free_data_w</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">label_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;not poi&#39;</span><span class="p">,</span> <span class="s1">&#39;poi&#39;</span><span class="p">])</span>
 
 <span class="c1"># Convert to numpy array</span>
-<span class="n">outliers_free_data_w</span> <span class="o">=</span> <span class="n">outliers_free_data_w</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
+<span class="n">outliers_f_data_w</span> <span class="o">=</span> <span class="n">outliers_free_data_w</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -13672,10 +13692,10 @@ RK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">targetFeatureSplit</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">targetFeatureSplit</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split the target and the features, here targetFeatureSplit assume</span>
 <span class="sd">    that the target are at the end of the array</span>
@@ -13688,7 +13708,7 @@ RK5CYII=
 
     <span class="k">return</span> <span class="n">target</span><span class="p">,</span> <span class="n">features</span>
 
-<span class="n">cleaned_labels</span><span class="p">,</span> <span class="n">cleaned_features</span> <span class="o">=</span> <span class="n">targetFeatureSplit</span><span class="p">(</span><span class="n">outliers_free_data_w</span><span class="p">)</span>
+<span class="n">cleaned_labels</span><span class="p">,</span> <span class="n">cleaned_features</span> <span class="o">=</span> <span class="n">targetFeatureSplit</span><span class="p">(</span><span class="n">outliers_f_data_w</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13711,13 +13731,13 @@ RK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">Imputer</span>
 <span class="n">imp</span> <span class="o">=</span> <span class="n">Imputer</span><span class="p">(</span><span class="n">missing_values</span><span class="o">=</span><span class="s1">&#39;NaN&#39;</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">imp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-<span class="n">cleaned_features</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+<span class="n">imp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cleaned_features</span><span class="p">)</span>
+<span class="n">cleaned_features</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">cleaned_features</span><span class="p">)</span>
 
 <span class="n">cleaned_features</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
@@ -13730,52 +13750,11 @@ RK5CYII=
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[53]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(145, 15)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">cleaned_features</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[54]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[  0.00000000e+00,   0.00000000e+00,   0.00000000e+00, ...,
-          8.07000000e+02,   1.06182700e+06,   5.85062000e+05],
-       [  1.29573800e+06,  -1.38605500e+06,   0.00000000e+00, ...,
-          0.00000000e+00,   5.63434300e+06,   1.06232580e+07],
-       [  0.00000000e+00,  -4.00729000e+05,   0.00000000e+00, ...,
-          0.00000000e+00,   2.11725000e+05,   6.67873500e+06],
-       ..., 
-       [  2.27449000e+05,   0.00000000e+00,   0.00000000e+00, ...,
-          5.33000000e+02,   1.09266300e+06,   3.74504800e+06],
-       [  0.00000000e+00,  -3.00000000e+05,   0.00000000e+00, ...,
-          8.65000000e+02,   8.75760000e+05,   1.08098800e+06],
-       [  0.00000000e+00,   0.00000000e+00,   0.00000000e+00, ...,
-          8.73000000e+02,   1.27228400e+06,   7.78546000e+05]])</pre>
+<pre>(145, 17)</pre>
 </div>
 
 </div>
@@ -13789,22 +13768,26 @@ RK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There are only 145 data points. Quite a big on the small side.</p>
-<p>Wouldn't make sense to split it into more than 2 folds. Here I'm going to save 30% of the dataset to serve as testing data.</p>
-<p>As for parameters tuning, k-fold cross-validation will help maximizing the data available, I will go at k=5 as default, 
-if had to, will go back to increase it to 7, or perhaps 10.</p>
+<p>There are 145 data points. Certainly not that big, but not too small, either.</p>
+<p>For validation, I'm going to save 30% of the data set. Later on, I will use these as the testing data to make sure that the model wasn't overfitted.</p>
+<p>I'm going to try a lot of parameters combination to make the most of the algorithms, k-fold cross-validation will be used to validate these parameters tuning.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="n">train_features</span><span class="p">,</span> <span class="n">test_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">cleaned_features</span><span class="p">,</span> <span class="n">cleaned_labels</span><span class="p">,</span> 
-                                                                            <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">train_features</span><span class="p">,</span> <span class="n">test_features</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">cleaned_features</span><span class="p">,</span> 
+                                                 <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> 
+                                                 <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">cleaned_labels</span><span class="p">,</span> 
+                                             <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> 
+                                             <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13820,7 +13803,8 @@ if had to, will go back to increase it to 7, or perhaps 10.</p>
 <p>There are a lot of algorithms avaiable, so I will just try a lot.</p>
 
 <pre><code>- A pipeline are constructed and put in a function to help move things forward easier.
-- GridSearchCV are used to fine-tuning the parameters.
+- SelectKBest are used to find the meaningful features.
+- GridSearchCV are used to fine-tuning the parameters for the algorithms and to find the best combination of features.
 - The test data are then used to test the model.</code></pre>
 
 </div>
@@ -13828,7 +13812,7 @@ if had to, will go back to increase it to 7, or perhaps 10.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
@@ -13843,15 +13827,13 @@ if had to, will go back to increase it to 7, or perhaps 10.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
             <span class="p">(</span><span class="s1">&#39;features_selection&#39;</span><span class="p">,</span> <span class="n">SelectKBest</span><span class="p">()),</span>
-            <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span>
-        <span class="p">])</span>
-    <span class="c1">#pipeline.fit(train_features, train_labels)</span>
-
-    <span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+            <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">)])</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> 
+                      <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;recall&#39;</span><span class="p">)</span>
     <span class="n">cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
     <span class="n">pred</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_features</span><span class="p">)</span>
     <span class="k">print</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">cv</span><span class="o">.</span><span class="n">best_params_</span> 
+    <span class="k">return</span> <span class="n">cv</span>
 </pre></div>
 
 </div>
@@ -13877,7 +13859,7 @@ the court will determine if they are at fault or not.</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesClassifier</span>
@@ -13886,8 +13868,7 @@ the court will determine if they are at fault or not.</code></pre>
 <span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
                   <span class="n">classifier__n_estimators</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
                   <span class="n">classifier__min_samples_split</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-                  <span class="n">classifier__min_samples_leaf</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-                 <span class="p">)</span>
+                  <span class="n">classifier__min_samples_leaf</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 
 <span class="n">ett</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
@@ -13904,12 +13885,11 @@ the court will determine if they are at fault or not.</code></pre>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>             precision    recall  f1-score   support
 
-        0.0       0.88      0.95      0.91        38
-        1.0       0.33      0.17      0.22         6
+        0.0       0.93      1.00      0.96        38
+        1.0       1.00      0.50      0.67         6
 
-avg / total       0.80      0.84      0.82        44
+avg / total       0.94      0.93      0.92        44
 
-{&#39;classifier__min_samples_leaf&#39;: 1, &#39;classifier__n_estimators&#39;: 10, &#39;features_selection__k&#39;: 8, &#39;classifier__min_samples_split&#39;: 2}
 </pre>
 </div>
 </div>
@@ -13920,7 +13900,7 @@ avg / total       0.80      0.84      0.82        44
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
@@ -13945,12 +13925,11 @@ avg / total       0.80      0.84      0.82        44
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>             precision    recall  f1-score   support
 
-        0.0       0.86      1.00      0.93        38
-        1.0       0.00      0.00      0.00         6
+        0.0       0.90      1.00      0.95        38
+        1.0       1.00      0.33      0.50         6
 
-avg / total       0.75      0.86      0.80        44
+avg / total       0.92      0.91      0.89        44
 
-{&#39;classifier__min_samples_leaf&#39;: 5, &#39;classifier__n_estimators&#39;: 5, &#39;features_selection__k&#39;: 6, &#39;classifier__min_samples_split&#39;: 2}
 </pre>
 </div>
 </div>
@@ -13961,7 +13940,7 @@ avg / total       0.75      0.86      0.80        44
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
@@ -13982,12 +13961,11 @@ avg / total       0.75      0.86      0.80        44
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>             precision    recall  f1-score   support
 
-        0.0       0.85      0.92      0.89        38
-        1.0       0.00      0.00      0.00         6
+        0.0       0.95      1.00      0.97        38
+        1.0       1.00      0.67      0.80         6
 
-avg / total       0.74      0.80      0.77        44
+avg / total       0.96      0.95      0.95        44
 
-{&#39;features_selection__k&#39;: 4}
 </pre>
 </div>
 </div>
@@ -14001,7 +13979,7 @@ avg / total       0.74      0.80      0.77        44
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="II.-UNSTRUCTURED-DATA-SET">II. UNSTRUCTURED DATA SET<a class="anchor-link" href="#II.-UNSTRUCTURED-DATA-SET">&#182;</a></h1>
+<h1 id="UNSTRUCTURED-DATA-SET">UNSTRUCTURED DATA SET<a class="anchor-link" href="#UNSTRUCTURED-DATA-SET">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -14024,9 +14002,10 @@ avg / total       0.74      0.80      0.77        44
 The emails stored in these directories are categorized into all kind of subdirectories: inbox, sent, archived, starwars...
 The emails also came with all shapes and flavours, so it might be a mess to parse them all accordingly to the main categories.</p>
 <p>The first challenge is to find a way to parse these emails together:</p>
-
-<pre><code> - Use the parent directory where the emails belong to as the key is one approach, however, since the inrested emails are the one sent by the person only, while the directory hold not just emails sent by that person, but inbox from others as well. So not a very good approach for this one.
- - My approach to solve this is to disregard the parent directory, and to just read every single email, and identify the person that sent the email (an email might be received by several, but can only be sent by one, making from_email_adress a unikey key). </code></pre>
+<ul>
+<li>Use the parent directory where the emails belong to as the key is one approach, however, since the inrested emails are the one sent by the person only, while the directory hold not just emails sent by that person, but inbox from others as well. So not a very good approach for this one.</li>
+<li>My approach to solve this is to disregard the parent directory, and to just read every single email, and identify the person that sent the email (an email might be received by several, but can only be sent by one, making from_email_adress a unikey key). </li>
+</ul>
 
 </div>
 </div>
@@ -14038,7 +14017,9 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">extract_sender</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Email identifier, will read an email and pick up the sender&#39;s email address&#39;&#39;&#39;</span>
+<span class="sd">    Email identifier, will read an email and pick up the </span>
+<span class="sd">    sender&#39;s email address</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">email_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;From: .+@.+&#39;</span><span class="p">)</span>
         <span class="n">sender</span> <span class="o">=</span> <span class="n">email_pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">group</span><span class="p">()[</span><span class="mi">6</span><span class="p">:]</span>
@@ -14048,11 +14029,12 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 
 <span class="k">def</span> <span class="nf">extract_email_and_path</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Walk through the directory that store the data, open email, one by one,</span>
-<span class="sd">    use the function &#39;extract_sender&#39; defined above to extract the sender&#39;s email.</span>
+<span class="sd">    Walk through the directory that store the data, open email, </span>
+<span class="sd">    one by one, use the function &#39;extract_sender&#39; defined above </span>
+<span class="sd">    to extract the sender&#39;s email.</span>
 <span class="sd">    </span>
-<span class="sd">    Register the sender&#39;s email as a new key to the text_dict if it does not exist, </span>
-<span class="sd">    otherwise, store the path to the email.</span>
+<span class="sd">    Register the sender&#39;s email as a new key to the text_dict if </span>
+<span class="sd">    it does not exist, otherwise, store the path to the email.</span>
 <span class="sd">    </span>
 <span class="sd">    Return the text_dict once done</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -14061,7 +14043,8 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
     <span class="n">contents</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">processed</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c1"># Walk the directory</span>
-    <span class="k">for</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s1">&#39;.\enron_mail_20150507\maildir&#39;</span><span class="p">,</span> <span class="n">topdown</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="p">(</span><span class="k">for</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> 
+     <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s1">&#39;.\enron_mail_20150507\maildir&#39;</span><span class="p">,</span> <span class="n">topdown</span><span class="o">=</span><span class="bp">False</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
             <span class="c1"># When see a file, create a path that lead it</span>
             <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span>
@@ -14071,7 +14054,8 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
             <span class="c1"># Open the file and extract the from_email_adress</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">sender</span> <span class="o">=</span> <span class="n">extract_sender</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-            <span class="c1"># Store the from_email_adress and the path to the email to a dict</span>
+            <span class="c1"># Store the from_email_adress and the path to the </span>
+            <span class="c1"># email to a dict</span>
             <span class="k">if</span> <span class="n">text_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sender</span><span class="p">):</span>
                 <span class="n">text_dict</span><span class="p">[</span><span class="n">sender</span><span class="p">][</span><span class="s1">&#39;email_path&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -14096,7 +14080,8 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 <p>Add additional information to the text_dict:</p>
 
 <pre><code>- Poi status: If the person is identified as poi.
-- Identifier: Assigned another unique id to the key, this id will be used as the name for storage file later on. The email can't be used for this, for most often than not, it will contain special chars, easier to just have another set of unique id.</code></pre>
+- Identifier: Assigned another unique id to the key, this id will be used as the name for storage file later on. 
+The email can't be used for this, for most often than not, it will contain special chars, easier to just have another set of unique id.</code></pre>
 
 </div>
 </div>
@@ -14115,10 +14100,10 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 <span class="n">poi</span> <span class="o">=</span> <span class="p">[]</span>
 
 
-<span class="c1"># Loop through all the email in the text_dict, if the email match the data_dict&#39;s, get </span>
-<span class="c1"># the poi status from it and conver to float, otherwise, set it as 0.0.</span>
-<span class="c1"># Assign id to the text_dict, running from 0 to len(text_dict), convert it to string</span>
-<span class="c1"># and add &#39;.txt&#39; to the end.</span>
+<span class="c1"># Loop through all the email in the text_dict, if the email match the </span>
+<span class="c1"># data_dict&#39;s, get the poi status from it and conver to float, </span>
+<span class="c1"># otherwise, set it as 0.0. Assign id to the text_dict, running from 0</span>
+<span class="c1"># to len(text_dict), convert it to string and add &#39;.txt&#39; to the end.</span>
 <span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">text_dict</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
@@ -14184,7 +14169,8 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 <span class="c1"># Check and parse contents for enron people only</span>
 <span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">text_dict</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">data_dict_email</span><span class="p">:</span>
-        <span class="n">parse_contents</span><span class="p">(</span><span class="n">text_dict</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s1">&#39;email_path&#39;</span><span class="p">],</span> <span class="n">text_dict</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s1">&#39;content_file_id&#39;</span><span class="p">])</span>
+        <span class="n">parse_contents</span><span class="p">(</span><span class="n">text_dict</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s1">&#39;email_path&#39;</span><span class="p">],</span> 
+                       <span class="n">text_dict</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s1">&#39;content_file_id&#39;</span><span class="p">])</span>
         <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_dict</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s1">&#39;content_file_id&#39;</span><span class="p">])</span>
         <span class="n">poi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_dict</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s1">&#39;poi&#39;</span><span class="p">])</span>
 </pre></div>
@@ -14208,7 +14194,7 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Like earlier, save 30% of the dataset for testing</p>
+<p>Like earlier, save 30% of the dataset for testing.</p>
 
 </div>
 </div>
@@ -14219,7 +14205,12 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="n">contents_train</span><span class="p">,</span> <span class="n">contents_test</span><span class="p">,</span> <span class="n">poi_train</span><span class="p">,</span> <span class="n">poi_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">poi</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">poi</span><span class="p">)</span>
+<span class="n">contents_train</span><span class="p">,</span> <span class="n">contents_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> 
+                                                 <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> 
+                                                 <span class="n">stratify</span><span class="o">=</span><span class="n">poi</span><span class="p">)</span>
+
+<span class="n">poi_train</span><span class="p">,</span> <span class="n">poi_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">poi</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> 
+                                       <span class="n">stratify</span><span class="o">=</span><span class="n">poi</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -14296,7 +14287,8 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 <span class="sd">    the model and print the results</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-            <span class="p">(</span><span class="s1">&#39;vectorizer&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="n">decode_error</span> <span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s1">&#39;vectorizer&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> 
+                                           <span class="n">decode_error</span> <span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)),</span>
             <span class="p">(</span><span class="s1">&#39;tfidf&#39;</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">()),</span>
             <span class="p">(</span><span class="s1">&#39;features_selection&#39;</span><span class="p">,</span> <span class="n">SelectPercentile</span><span class="p">()),</span>
             <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
@@ -14306,7 +14298,6 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
     <span class="n">pred</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">contents_test</span><span class="p">)</span>
     
     <span class="k">print</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">poi_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">cv</span><span class="o">.</span><span class="n">best_params_</span> 
 </pre></div>
 
 </div>
@@ -14323,7 +14314,7 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 <span class="n">method</span> <span class="o">=</span> <span class="n">MultinomialNB</span><span class="p">()</span>
 <span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__percentile</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
 
-<span class="n">nb_text</span> <span class="o">=</span> <span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -14371,7 +14362,7 @@ avg / total       0.71      0.84      0.77        32
                   <span class="n">classifier__n_clusters</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
                   <span class="n">classifier__max_iter</span><span class="o">=</span><span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
 
-<span class="n">kmc_text</span> <span class="o">=</span> <span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -14414,7 +14405,7 @@ avg / total       0.70      0.16      0.26        32
 <span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__percentile</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">],</span>
                   <span class="n">classifier__n_estimators</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
                   <span class="n">classifier__min_samples_split</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
-<span class="n">rfc_text</span> <span class="o">=</span> <span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -14457,14 +14448,17 @@ avg / total       0.70      0.75      0.72        32
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Text mining couldn't proved to be useful. All algorithms failed the second condition.</p>
-<p>The reason to this, is mostly due to limitation of hardware:</p>
+<p>My attempt to gather insights from text-ming was unsuccesful. The reason to this, is mostly due to limitation of hardware:</p>
 
 <pre><code>- Failure in steeming words.
 - Limitation in parameters tuning.
 
 </code></pre>
-<p>With a stronger machine, things could be different. That said, under the circumstances, ExtraTreeClassifier proved to be the best algorithm.</p>
+<p>With a stronger machine, things could be different.</p>
+<p>As for structured data, all 3 algirithms delivered good result, GaussianNB proved to be the best algorithm by delivering the highest recall rate:</p>
+
+<pre><code>- Total recall: 0.95
+- Recall for poi: 0.67</code></pre>
 
 </div>
 </div>
