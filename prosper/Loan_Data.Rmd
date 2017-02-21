@@ -1,0 +1,633 @@
+---
+title: "Exploratory Data Analysis on Loan Data from Prosper"
+author: "LinhNguyen"
+date: "Thursday, November 17, 2016"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+library(maps)
+library(tidyr)
+library(scales)
+```
+
+```{r echo=FALSE}
+loan.data <- "E:/Work/Education/Udacity Nanodegree/Rproj/P4 EDA/prosperloandata.csv"
+loan.data <- read.csv(loan.data)
+```
+
+
+```{r echo=FALSE}
+dim(loan.data)
+```
+
+The data set is big, with 81 variables and 113,937 observations. 
+
+This analysis has 2 parts:
+
+- Part 1: I poked around, asking random questions, trying to get a sense of the data. Because the data set are too big, and without a proper question serving as some kind of anchor, one could easily get lost in the sea of data.
+- Part 2: The main theme of the analysis, where I tried to understand how the risk and prospect affect the investor's amount of investment?
+
+## PART I
+### 1. What are the differences in term of profitability between status in LoanStatus?
+
+```{r Original LoanStatus, echo=FALSE, fig.height=7, fig.width=10, message=FALSE, warning=FALSE}
+ggplot(aes(LoanStatus), data=loan.data) + 
+  geom_bar(fill = 'forestgreen') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+The graph above shows the distribution of LoanStatus. There is a total of 12 factors, too many for pattern recognization using color. 
+
+Therefore, before solving the question, I will first try to group related factors with each other, and put them under the same color palette:
+
+The good scenario:
+
+  + Completed: Represent the best scenario, where the loan was paid back in full
+  + FinalPaymentInProgress: The near best scenario, a little more and the loan will be paid back in full
+  
+The neutral scenario:
+
+  + Current: The loan is being paid, and nothing has gone wrong, yet.
+  + Past Due (1-30 days): Some small delay, probably nothing.
+  
+The bad scenario:
+
+  + Past Due (30 days onward): The longer, the more likely a charged off will occur.
+
+
+```{r fig.width=7, echo=FALSE, fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
+LoanStatusCol <- c('white', 'gray0', 'royalblue4', 'forestgreen', 
+                   'gray10', 'cyan', 'gray20', 'palegreen4',
+                   'palegreen1', 'gray60', 'gray40', 'gray30')
+
+ggplot(aes(x = BorrowerAPR, y = LenderYield), data=loan.data) + 
+  geom_jitter(aes(color = LoanStatus)) +
+  scale_color_manual(values = LoanStatusCol)
+```
+
+A random scatter plot that to check the effect of the grouping. It's good now, time to start answering the real question.
+
+First I will try to solve this the simplest way possible by looking at the differences between the money given out (LoanOriginalAmount) and the money that the borrower paid back (LP_CustomerPayments).
+
+```{r, fig.height=7, fig.width=12, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(LoanOriginalAmount)) +
+  geom_histogram(bins = 100, color = 'darkorange', fill = 'forestgreen')
+```
+
+People love rounded numbers, notice how the majority of loan amount are rounded to the nearest thousands. There are a lot of big loans (10,000 and above).
+
+
+```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(LP_CustomerPayments)) +
+  geom_histogram(bins = 200, fill = 'orange', color = 'forestgreen')
+```
+
+The majority of borrower's payments are below 10,000, that's a bad news, considering the number of 10,000 and above original loan amount are not that far away from the below 10,000 one.
+
+Perhaps something is missing, I will come back later and dig this up.
+
+```{r}
+summary(loan.data$LoanStatus)
+```
+
+```{r, fig.height=7, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(LoanStatus, LP_CustomerPayments - LoanOriginalAmount)) + 
+  geom_boxplot(fill = 'forestgreen', color = 'firebrick4') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+The lenders will get a green cashflow for a completed loan, and red for everything else.
+
+### 2. Is there a differences in the borrower's payments between small loans and big loans? Why?
+
+Initially, I noticed a different in the borrower's payments between the 2 group, above 10000 and below 10000. Now I'm going to dig deeper, see if there's anything strange in here.
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+loan.data <- loan.data %>%
+mutate(UnpaidBalance = LP_CustomerPrincipalPayments - LoanOriginalAmount, 
+      
+       # Assign labels to the LoanOriginalAmount data:
+       
+       # Create a new column that will store the labels information.
+       # Loop through the original column, if the value fulfill condition, 
+       # write the pre-chosen labels to a new column.
+
+       LoanOriginalAmountFactors = ifelse(LoanOriginalAmount > 9999, 
+                                          '> 9999', LoanOriginalAmount),
+       LoanOriginalAmountFactors = ifelse(LoanOriginalAmount > 4999 
+                                          & LoanOriginalAmount <= 9999, 
+                                          '5000 - 9999', 
+                                          LoanOriginalAmountFactors), 
+       LoanOriginalAmountFactors = ifelse(LoanOriginalAmount <= 4999 
+                                          & LoanOriginalAmount > 999, 
+                                          '1000 - 5000', 
+                                          LoanOriginalAmountFactors), 
+       LoanOriginalAmountFactors = ifelse(LoanOriginalAmount <= 999, 
+                                          '< 1000', 
+                                          LoanOriginalAmountFactors))
+
+loan.data$LoanOriginalAmountFactors <- as.factor((loan.data$LoanOriginalAmountFactors))
+```
+
+I added 2 more variables:
+
+- Unpaid balance (total principal payments - original loan amount).
+
+```{r, echo = FALSE}
+summary(loan.data$UnpaidBalance)
+```
+
+- Categorized original loan amount, I wanted to see if and how the borrower's payments change with differences loan size. Everything else (interest, fees, etc) was discounted for the sake of simplicity. 
+
+```{r, echo = FALSE}
+summary(loan.data$LoanOriginalAmountFactors)
+```
+
+```{r, echo = FALSE}
+PrintPaymentStats <- function(group, input){
+  # Print out the name of the data group as well as some relevant stats
+  
+  data <- subset(input, LoanOriginalAmountFactors == group)
+  line1 <- sprintf('Original Loan Amount: %s', group)
+  line2 <- sprintf('Number of loans: %f', dim(data)[1])
+  line3 <- sprintf('Average unpaid balance: %f', mean(data$UnpaidBalance))
+  line4 <- sprintf("Average Payments over Average Original Loan Amount: %.3f", 
+                   mean(data$LP_CustomerPrincipalPayments) 
+                   / mean(data$LoanOriginalAmount))
+
+  cat(paste(line1, line2, line3, line4, sep = '\n'))
+}
+```
+
+```{r, echo = FALSE}
+PrintPaymentStats('1000 - 5000', loan.data)
+```
+
+```{r, echo = FALSE}
+PrintPaymentStats('5000 - 9999', loan.data)
+```
+
+```{r, echo = FALSE}
+PrintPaymentStats('> 9999', loan.data)
+```
+
+The average unpaid balance dropped dramatically when the loans get bigger, from -1399 to over -10000, the same as the percentage of average payments over average original loan amount, from 0.533 down to 0.29
+
+```{r, message=FALSE, warning=FALSE, echo = FALSE}
+ggplot(loan.data, aes(LoanOriginalAmount, UnpaidBalance)) +
+  geom_jitter(aes(color = LoanOriginalAmountFactors))
+```
+
+The larger the loan, the more difficult to pay back, that's a fact. 
+
+But this is totally unexpected, for this graph show a massive loss, and it told us that not only should we stop going for large loans, but we should quit the industry, entirely.
+
+It could be because these loans are incompleted. Now, to avoid bias, I will separate the completed loan, and see if the situation is really this terrible.
+
+```{r, fig.height=7, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+loan.data$LoanOriginationDate <- as.Date(loan.data$LoanOriginationDate)
+
+ggplot(loan.data, aes(LoanOriginationDate, UnpaidBalance)) +
+  geom_jitter(aes(color= LoanStatus), size = 0.2) +
+  scale_color_manual(values = LoanStatusCol)
+```
+
+There are a lot of current loans, and perhaps it is these loans that distorted the picture. Before 2011, most of the loans are either completed, charged off or defaulted, making it an ideal timeframe for examination.
+
+There is also a gap between 2008 and 2010, I wonder why, perhaps there was something wrong with the data, or perhaps it was because of some real world event that affected the entire financial world, which is not quite impossible. I will probably go back and see if I could answer this question later on.
+
+```{r, echo = FALSE}
+loan.data.before.2011 <- subset(loan.data, 
+                                LoanOriginationDate < as.Date("2011-01-01"))
+```
+
+```{r, echo = FALSE}
+PrintPaymentStats('1000 - 5000', loan.data.before.2011)
+```
+
+```{r, echo = FALSE}
+PrintPaymentStats('5000 - 9999', loan.data.before.2011)
+```
+
+```{r, echo = FALSE}
+PrintPaymentStats('> 9999', loan.data.before.2011)
+```
+
+The percentage of average payments over average original loan amount are at the same level for all 3 groups, while the average unpaid balances still get bigger in parallel with the size of loans, but with a much lower rate.
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(LoanOriginationDate, UnpaidBalance)) +
+  geom_smooth() 
+```
+
+It looks quite promising when interest and fees are taken into consideration. It took a while for a loan to mature, that's why the payments balance between the period of 2011 and 2014 are so low.
+
+The loans didn't do that great in the period between 2006 and 2008, this, again, I suspected that it has to do with the gap between 2008 and 2010.
+
+### 3. Why is there a gap in data between 2008 and 2010?
+
+```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+loan.data$ListingCreationDate <- as.Date(loan.data$ListingCreationDate)
+loan.data$ClosedDate <- as.Date(loan.data$ClosedDate)
+loan.data$DateCreditPulled <- as.Date(loan.data$DateCreditPulled)
+
+plot_histogram <- function(variable){
+  ggplot(loan.data, aes_string(variable)) + 
+    geom_histogram(bins = 200, fill = 'forestgreen', color = 'firebrick4')
+}
+
+grid.arrange(plot_histogram("LoanOriginationDate"),
+             plot_histogram("ClosedDate"),
+             plot_histogram("DateCreditPulled"))
+```
+
+There were no new loans in the gap between 2008 and 2010, not a single one, while other already funded loans were still functional as is.
+
+Sadly, there's a limit to how useful data can be, and in this case, it stopped here. There's no longer any kind of data that could explain what happened in that period.
+
+So I did a quick google search, as it turned out, it was the result of a law suit, in which SEC temporarily forced Prosper.com to stop brokering new loans while it determined whether Prosper's loans should be classified as securities.
+
+### 4. How does Prosper benefit?
+
+Before, I thought that this data set was from some kind of bank, turned out, I was wrong. This data set originally came from Prosper, which is a platform for peer to peer lending service. 
+
+Prosper doesn't give people money. It only runs the platform, and charge people for using it, both the lenders and the borrowers.
+
+```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(LP_ServiceFees)) + 
+  geom_histogram(bins = 100, fill = 'forestgreen', color = 'gold')
+```
+
+```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+summary(loan.data$LP_ServiceFees)
+```
+
+On average, Prosper charges around $50 for the service. Notice that this service fee is divided proportionally upon investors of a particular loan.
+
+The service fees were meant to be subtracted from every borrower loan payment received, perhaps that's why they put it in the form of negative numbers, so it's kind of strange to spot some positive numbers here, perhaps something is wrong.
+
+```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+LP_PositiveServiceFees <- subset(loan.data, LP_ServiceFees > 0)
+LP_PositiveServiceFees['LP_ServiceFees']
+```
+
+A total of 8 occurrences with a positive service fees. On one hand, this might just be an engineering bug, otherwise, it meant that special circumstances happened and that Prosper was the one paying the lenders in these 8 instants.
+
+I'd love to go to the end of this, but to do that, I'd need detailed data of transactions, which apparently, doesn't exist in this data set. 
+
+```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, 
+       aes(LoanOriginalAmount, LP_ServiceFees, color = as.factor(Term))) + 
+  geom_jitter()
+```
+
+The annual loan service fee for lenders is 1%, so the bigger the loan, the larger the fee.
+
+Another contributor is the length of the loan. 
+
+In theory, loans can either have a 12, 36 or 60 months term and that each month the borrower will make a certain fixed amount of payment until the loan is matured.
+
+In reality, however, the loan length is not fixed and borrowers could always pay back earlier if they could. That's why I will also look at the length of the loan. Ideally, the data would be the number of payments that the borrowers made, but that kind of data wasn't available, so I will make do with the differences in days between the closed date and the listing date. It won't be as accurate as the number of payments, but it will be something.
+
+```{r, echo = FALSE}
+loan.data$ClosedDate <- as.Date(loan.data$ClosedDate)
+loan.data$ListingCreationDate <- as.Date(loan.data$ListingCreationDate)
+# Create another variable recording the differences between ClosedDate and
+# ListingCreation date, stored as integer.
+
+loan.data <- loan.data %>% 
+  mutate(LoanLength = as.numeric((ClosedDate - LoanOriginationDate) / 365))
+```
+
+```{r, fig.height=7, fig.width=7, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(LoanLength / 365)) + 
+  geom_histogram(bins = 70, fill = 'forestgreen', color = 'gold')
+```
+
+```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+summary(loan.data$LoanLength / 365)
+```
+
+Only the completed, defaulted or chargedoff loans would get a closed date. For loans that are still being paid, the closed date is blank, therefore will produce a missing value, which is neat.
+
+Most of the borrowers pay back in 3 years time.
+
+There is, however, a negative value.
+
+```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+NegativeLoanLength <- subset(loan.data, LoanLength < 0, 
+                             select = c(ClosedDate, ListingCreationDate))
+str(NegativeLoanLength)
+```
+
+I'm pretty sure that this is an engineering problem, perhaps the date was reversed. Again, like earlier, the transaction data wasn't available, so there's no way to get to the bottom of this.
+
+```{r, fig.height=7, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(subset(loan.data, LoanLength >= 0), 
+       aes(LoanLength, LP_ServiceFees, color = as.factor(Term))) +
+  geom_jitter(size = 0.1, alpha = 0.5) +
+  scale_color_brewer(type = 'qual', palette = 6)
+```
+
+It's true, the longer the length, the bigger the service fee. There are different patterns for loans with different terms, tho not very clear.
+
+Now I will combine them together, the loan amount and the loan length, to get a bigger picture. 
+
+Different loan terms will have different loan length, therefore i will divide loan length to term, to find the ratio of real loan length to scheduled loan length.
+
+And then, because both the loan length and the loan amount are numeric data, I will simply multiply it with each other and observe it there's anything to it.
+
+```{r, fig.height=7, fig.width=7, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(subset(loan.data, LoanLength >= 0 & LP_ServiceFees <= 0), 
+       aes((LoanLength / Term) * LoanOriginalAmount , 
+                     LP_ServiceFees, color = as.factor(Term))) + 
+  scale_color_brewer(type = 'qual', palette = 6) +
+  geom_jitter(size = 0.1, alpha = 0.1) 
+```
+
+The longer the term, the harder the borrower tried to pay it back early, for the longer they dragged out, the bigger the interest. This graph, however, didn't have the space for interest rate, so later.
+
+Another part of the service fee is through Borrower's fee.
+
+Prosper can charge borrower with 2 type of fees:
+
+- Closing fee: A percentage is taken directly in the beginning based on prosper rating, the fee associated with rating changed with time and the data set didn't come with this kind of data. While it was possible to cook something up to follow it, it could be a pain.
+- Failed payment fee: one time per payment record, no data available.
+
+So given the circumstances, I will not follow through on this one. 
+
+### 5. How are loans distributed geographically?
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Calculate the average loan amount, group by state
+loan.data.stats <- loan.data %>% 
+  group_by(BorrowerState) %>% 
+  summarise(AvgLoanAmount = mean(LoanOriginalAmount), 
+            n = n())
+
+# Merge the geography data with the loan data
+states <- data.frame(state.abb, state.name, state.center, state.x77)
+states$state.name <- tolower(states$state.name)
+loan.data.stats <- merge(loan.data.stats, states, 
+                         by.x = 'BorrowerState', by.y = 'state.abb')
+
+# Match the data created above to the map data
+all_states <- map_data('state')
+loan.data.stats <- merge(all_states, loan.data.stats, 
+                         by.x = 'region', by.y = 'state.name')
+loan.data.stats <- arrange(loan.data.stats, order)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+data(us.cities)
+
+ggplot(data = loan.data.stats, 
+       aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = n)) +
+  geom_path(colour = 'gray') +
+  scale_fill_continuous('Number of Loans', low = 'white', high = 'forestgreen') +
+  geom_point(data = subset(us.cities, long > -130), 
+             aes(long, lat, size = pop, group = NULL), color = 'orange') +
+  scale_size_continuous(label=comma, range = c(0,10))
+```
+
+Bigger States like California or Texas would have a greater number of loans. California has the highest number, partly because it's where Prosper put their headquarters, the other part, I believe, is because of California's strong economies. 
+
+## PART II:
+
+In this part of the analysis, I want to see if and how investors rationalize the amount of investment, to be more specific, how will the prospect and the risk of the loan influence the lender's investment amount?
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(loan.data, aes(Investors)) + 
+  geom_histogram(bins = 70, fill = 'darkgoldenrod', color = 'cadetblue')
+```
+
+```{r, echo = FALSE}
+summary(loan.data$Investors)
+```
+
+The investors distribution is skewed to the right, with the majority of loans having less than 100 investors.
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+loan.data <- loan.data %>% 
+  mutate(AvgInvestmentAmount = LoanOriginalAmount / Investors)
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(AvgInvestmentAmount)) + 
+  geom_histogram(bins = 50, fill = 'gold', color = 'deepskyblue4')
+```
+
+```{r, echo = FALSE}
+summary(loan.data$AvgInvestmentAmount)
+```
+
+The lender's investment decision will be represented by the average investment amount.
+
+Investors generally prefer to play it safe, with the majority of average investment at below 2000. Some loans, however, were able to convince investors to put up a larger investment. Perhaps, these loans promised greater return at lower risk.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(loan.data, aes(MonthlyLoanPayment)) + 
+  geom_histogram(bins = 50, color = 'forestgreen', fill = 'orange')
+```
+
+The prospect of the loan is represented by the lender's expected payment, which is the result of the multiplication of Term and MonthlyLoanPayment.
+
+```{r, echo = FALSE}
+summary(loan.data$MonthlyLoanPayment)
+dim(subset(loan.data, MonthlyLoanPayment <= 0))[1]
+```
+
+There is a problem, however. The MonthlyLoanPayment data is supposed to be bigger than 0, no matter how I look at it, a 0 is just unnatural.
+
+I looked for the source of it, but there was nothing. It could be another kind of engineering error, where the loan payment data was simply not processed. That said, I will still press forward with MonthlyLoanPayment, since there's no such thing as perfect, especially when it came to data.
+
+Another factor that will influence the investor is the risk. The first variable the came to my mind is the DebtToIncomeRatio. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(loan.data, aes(DebtToIncomeRatio)) + 
+  geom_histogram(bins = 50, color = 'forestgreen', fill = 'orange')
+```
+
+```{r, echo = FALSE}
+summary(loan.data$DebtToIncomeRatio)
+```
+
+People took the debt to income ratio seriously, most investors will not go for loans in which the debt to income ratio is higher than 1%, and no one will push higher than 10%.
+
+```{r, echo=FALSE, fig.height=7, fig.width=10, message=FALSE, warning=FALSE}
+ggplot(loan.data, aes(IncomeRange)) + 
+  geom_bar(color = 'forestgreen', fill = 'orange')
+```
+
+So instead of factoring in the DebtToIncomeRatio, I will incorporate the IncomeRange, because I know, no matter where I look at, chances are that the loan amount will only be around 1% of the borrower's income.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
+  geom_jitter(aes(color = as.factor(Term)), alpha = 0.5, size = 0.2) +
+  xlab('Expected Payment')
+```
+
+The longer the terms, the higher the expectation. There are 2 kinds of investment practice depicted in this graph:
+
+- Low average investment amount: Don't put all your eggs in one basket, the standard practice in the finance world, identify as many prosperous investments as possible and put in small amount while expecting a large return on investment. Investors who made this kind of investments will be referred to as group A investors.
+
+- High average investment amount: Occasionally, some golden deals will appear, investors who are experienced enough to identify them will want to grab up a bigger bite, sometimes the whole pie. Investors who made this kind of investments will be referred to as group B investors.
+
+```{r, echo = FALSE}
+loan.data <- loan.data %>% 
+  mutate(InvestmentType = ifelse(AvgInvestmentAmount 
+                                      / (MonthlyLoanPayment * Term) > 0.5, 
+                                      "GroupB", "GroupA"))
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
+  geom_jitter(aes(color = InvestmentType), alpha = 0.5, size = 0.2) +
+  xlab('Expected Payment')
+```
+
+I visualized them so that viewers could get a clear picture of the 2 groups.
+
+```{r, echo = FALSE}
+# Re-arrange IncomeRange's factor
+loan.data$IncomeRange <- factor(loan.data$IncomeRange, 
+                                levels(loan.data$IncomeRange)
+                                [c(7, 8, 1, 2, 4:6, 3)])
+```
+
+```{r, echo = FALSE, fig.height=16, fig.width=14}
+ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
+  geom_jitter(size = 0.5, aes(color = as.factor(Term))) +
+  facet_grid(IncomeRange ~ .) 
+```
+
+Group B investors are more sensitive to the income level, and they generally prefer to lend to people with higher income. 
+
+```{r, echo = FALSE}
+loan.data %>% 
+  group_by(IncomeRange, InvestmentType) %>% 
+  summarise(n = n()) %>% 
+  spread(InvestmentType, n) %>% 
+  mutate(AboveAvgRatio = GroupB/(GroupB + GroupA))
+```
+
+The higher the income level, the more confidence the people from Group B.
+
+```{r, echo = FALSE}
+loan.data %>% 
+  filter(!is.na(CreditScoreRangeUpper)) %>% 
+  group_by(InvestmentType) %>% 
+  summarise(CreditScoreRangeUpper = mean(CreditScoreRangeUpper), 
+            CreditScoreRangeLower = mean(CreditScoreRangeLower))
+```
+
+Another way to look at this is through the credit score. Borrowers financed by Group A investors typically have a lower credit score than people from group B.
+
+```{r, echo = FALSE}
+loan.data %>% 
+  filter(MonthlyLoanPayment > 0) %>% 
+  group_by(InvestmentType) %>% 
+  summarise(LoanOriginalAmount = mean(LoanOriginalAmount),
+            ExpectedPayment = mean((MonthlyLoanPayment * Term)),
+            EarningRatio = mean(MonthlyLoanPayment * Term / LoanOriginalAmount))
+```
+
+Group A's investors generally go for smaller loan, with higher expectation.
+
+
+## FINAL PLOTS AND SUMMARY
+
+#### Plot 1
+
+I tried to ascertain the meaning of loan status. I wanted to know about the thing that set these status apart.
+
+```{r, fig.height=7, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(LoanStatus, LP_CustomerPayments - LoanOriginalAmount)) + 
+  geom_boxplot(fill = 'forestgreen', color = 'tomato') +
+  theme(panel.background = element_rect(fill = 'white'),
+        panel.grid.major = element_line(colour = "gray87"),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  xlab("Loan Status") +
+  ylab("USD") +
+  ggtitle("DIFFERENCES BETWEEN BORROWER'S PAYMENTS AND ORIGINAL 
+  LOAN AMOUNT BETWEEN DIFFERENT GROUP OF LOAN STATUS")
+```
+
+The lenders will get a green cashflow for a completed loan, and red for everything else.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+loan.data %>% 
+  group_by(LoanStatus) %>% 
+  summarise(AvgCashFlow = mean(LP_CustomerPayments - LoanOriginalAmount))
+```
+
+#### Plot 2
+
+Here I was curious about the geographic distribution of loans. I wanted to see if loans were distributed evenly across country.
+
+```{r, fig.height=7, fig.width=12, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(data = loan.data.stats, 
+       aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = n)) +
+  geom_path(colour = 'gray') +
+  scale_fill_continuous('Number of Loans', low = 'white', high = 'forestgreen') +
+  geom_point(data = subset(us.cities, long > -130), 
+             aes(long, lat, size = pop, group = NULL), color = 'orange') +
+  scale_size_continuous(label=comma, range = c(0,10)) +
+  theme(panel.background = element_rect(fill = 'white'),
+        panel.grid.major = element_line(colour = "white")) +
+  xlab('longitude') + ylab("latitude") +
+  ggtitle("Distribution of Loans Across Country")
+```
+
+Bigger States like California or Texas would have a greater number of loans. California has the highest number, partly because it's where Prosper put their headquarters, the other part, I believe, is because of California's strong economies. 
+
+#### Plot 3
+
+I wanted to see if and how the prospect and the risk of the loan influenced the lender's amount of investment.
+
+```{r, fig.height=10, fig.width=12, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
+  geom_jitter(size = 0.2, aes(color = as.factor(Term))) +
+  facet_grid(IncomeRange ~ .) + 
+  scale_color_discrete('Term') +
+  xlab("Expected Payment") + ylab("Amount of Investment") +
+  ggtitle("RELATIONSHIP BETWEEN PROSPECT, RISK AND AMOUNT OF INVESTMENT") +
+  theme(panel.background = element_rect(fill = 'white'),
+        panel.grid.major = element_line(colour = "white"))
+```
+
+There is 2 type of investments:
+
+- Higher risk, higher expectation, spreaded across many small invesments.
+- Lower risk, lower expectation, focused on key loans.
+
+The results are questionable, of course, because there wasn't any recording the investor's investment, making it impossible to determine if these 2 mentioned above type of investments are individual-based or situation-based.
+
+# Reflection
+
+The data set contains 113937 observations, with 81 variables. It was just huge, there was no direction at all, no nothing. But thanks to that, I was able to understand just how important would the domain knowledge is.
+
+I started by exploring the LoanStatus, I wanted to check if these loan status reflect what they were meant to reflected, meaning completed loan should give out a positive balance, and anything else shouldn't.
+
+Then I noticed some strange pattern with the loan amount and the date of the loan, with some hacks, I found the answer to the loan amount, as for the date, there was simply no data that could explain it. Found my answer on wiki.
+
+Next, it was a real struggle, I've already explored half of the data set, and I still couldn't figure out any interesting questions, took me a while to educated myself on the finance field, and thanks to that, I was able to come up with some interesting things.
+
+Some investors would like to take it safe, some would like a bigger return, some try to lower the risk by placing lots of investments, while some try to identify some lower risk loan, and put all their money in that. This finding is still questionable, because of the lack of data.
+
+I was able to get something going for the analysis of Proper's benefit. However, the lack of data hampered my movements, and it took too much of effort to extract the borrower's fee from the available data. 
+
+Some future direction:
+
+- Some kind of model that will predict the number of investors that a loan might attract.
+- See how investor's investment strategy played out, between spreading the risk to a lot of loans, and putting large amount of money on some particular safe loan.
