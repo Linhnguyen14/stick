@@ -34,6 +34,11 @@ This analysis has 2 parts:
 - Part 1: I poked around, asking random questions, trying to get a sense of the data. Because the data set are too big, and without a proper question serving as some kind of anchor, one could easily get lost in the sea of data.
 - Part 2: The main theme of the analysis, where I tried to understand how the risk and prospect affect the investor's amount of investment?
 
+```{r, fig.width=10, message=FALSE, warning=FALSE}
+str(loan.data)
+```
+
+
 ## PART I
 ### 1. What are the differences in term of profitability between status in LoanStatus?
 
@@ -141,6 +146,7 @@ I added 2 more variables:
 - Unpaid balance (total principal payments - original loan amount).
 
 ```{r, echo = FALSE}
+str(loan.data$UnpaidBalance)
 summary(loan.data$UnpaidBalance)
 ```
 
@@ -196,7 +202,8 @@ loan.data$LoanOriginationDate <- as.Date(loan.data$LoanOriginationDate)
 
 ggplot(loan.data, aes(LoanOriginationDate, UnpaidBalance)) +
   geom_jitter(aes(color= LoanStatus), size = 0.2) +
-  scale_color_manual(values = LoanStatusCol)
+  scale_color_manual(values = LoanStatusCol) +
+  guides(color = guide_legend(override.aes = list(size= 5)))
 ```
 
 There are a lot of current loans, and perhaps it is these loans that distorted the picture. Before 2011, most of the loans are either completed, charged off or defaulted, making it an ideal timeframe for examination.
@@ -238,9 +245,9 @@ loan.data$ListingCreationDate <- as.Date(loan.data$ListingCreationDate)
 loan.data$ClosedDate <- as.Date(loan.data$ClosedDate)
 loan.data$DateCreditPulled <- as.Date(loan.data$DateCreditPulled)
 
-plot_histogram <- function(variable){
-  ggplot(loan.data, aes_string(variable)) + 
-    geom_histogram(bins = 200, fill = 'forestgreen', color = 'firebrick4')
+plot_histogram <- function(variable, numberofbins = 200, data = loan.data){
+  ggplot(data, aes_string(variable)) + 
+    geom_histogram(bins = numberofbins, fill = 'forestgreen', color = 'firebrick4')
 }
 
 grid.arrange(plot_histogram("LoanOriginationDate"),
@@ -285,7 +292,8 @@ I'd love to go to the end of this, but to do that, I'd need detailed data of tra
 ```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(loan.data, 
        aes(LoanOriginalAmount, LP_ServiceFees, color = as.factor(Term))) + 
-  geom_jitter()
+  geom_jitter() +
+  guides(color = guide_legend(override.aes = list(size= 3)))
 ```
 
 The annual loan service fee for lenders is 1%, so the bigger the loan, the larger the fee.
@@ -307,12 +315,13 @@ loan.data <- loan.data %>%
 ```
 
 ```{r, fig.height=7, fig.width=7, message=FALSE, warning=FALSE, echo=FALSE}
-ggplot(loan.data, aes(LoanLength / 365)) + 
+ggplot(loan.data, aes(LoanLength)) + 
   geom_histogram(bins = 70, fill = 'forestgreen', color = 'gold')
 ```
 
 ```{r, fig.height=10, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
-summary(loan.data$LoanLength / 365)
+str(loan.data$LoanLength)
+summary(loan.data$LoanLength)
 ```
 
 Only the completed, defaulted or chargedoff loans would get a closed date. For loans that are still being paid, the closed date is blank, therefore will produce a missing value, which is neat.
@@ -333,7 +342,8 @@ I'm pretty sure that this is an engineering problem, perhaps the date was revers
 ggplot(subset(loan.data, LoanLength >= 0), 
        aes(LoanLength, LP_ServiceFees, color = as.factor(Term))) +
   geom_jitter(size = 0.1, alpha = 0.5) +
-  scale_color_brewer(type = 'qual', palette = 6)
+  scale_color_brewer(type = 'qual', palette = 6) +
+  guides(color = guide_legend(override.aes = list(size= 5)))
 ```
 
 It's true, the longer the length, the bigger the service fee. There are different patterns for loans with different terms, tho not very clear.
@@ -349,7 +359,8 @@ ggplot(subset(loan.data, LoanLength >= 0 & LP_ServiceFees <= 0),
        aes((LoanLength / Term) * LoanOriginalAmount , 
                      LP_ServiceFees, color = as.factor(Term))) + 
   scale_color_brewer(type = 'qual', palette = 6) +
-  geom_jitter(size = 0.1, alpha = 0.1) 
+  geom_jitter(size = 0.1, alpha = 0.1) +
+  guides(color = guide_legend(override.aes = list(size= 5)))
 ```
 
 The longer the term, the harder the borrower tried to pay it back early, for the longer they dragged out, the bigger the interest. This graph, however, didn't have the space for interest rate, so later.
@@ -385,7 +396,7 @@ loan.data.stats <- merge(all_states, loan.data.stats,
 loan.data.stats <- arrange(loan.data.stats, order)
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, fig.height=7, fig.width=12, message=FALSE, warning=FALSE}
 data(us.cities)
 
 ggplot(data = loan.data.stats, 
@@ -404,7 +415,7 @@ Bigger States like California or Texas would have a greater number of loans. Cal
 
 In this part of the analysis, I want to see if and how investors rationalize the amount of investment, to be more specific, how will the prospect and the risk of the loan influence the lender's investment amount?
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, fig.height=5, fig.width=7, message=FALSE, warning=FALSE}
 ggplot(loan.data, aes(Investors)) + 
   geom_histogram(bins = 70, fill = 'darkgoldenrod', color = 'cadetblue')
 ```
@@ -420,18 +431,26 @@ loan.data <- loan.data %>%
   mutate(AvgInvestmentAmount = LoanOriginalAmount / Investors)
 ```
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
-ggplot(loan.data, aes(AvgInvestmentAmount)) + 
-  geom_histogram(bins = 50, fill = 'gold', color = 'deepskyblue4')
+```{r, echo=FALSE, fig.height=5, fig.width=7, message=FALSE, warning=FALSE}
+plot_histogram("AvgInvestmentAmount", 50)
+```
+
+The lender's investment decision will be represented by the average investment amount. Here, the average investment amount of 0 are too high, making it difficult to look at the other values. So I shall divide it into 2 category: Below 1000 and Above 1000.
+
+```{r, echo=FALSE, fig.height=5, fig.width=7, message=FALSE, warning=FALSE}
+grid.arrange(plot_histogram("AvgInvestmentAmount", 50,
+                            subset(loan.data, AvgInvestmentAmount <= 1000)),
+             plot_histogram("AvgInvestmentAmount", 50, 
+                            subset(loan.data, AvgInvestmentAmount > 1000)))
 ```
 
 ```{r, echo = FALSE}
 summary(loan.data$AvgInvestmentAmount)
 ```
 
-The lender's investment decision will be represented by the average investment amount.
+Investors generally prefer to play it safe, with the majority of average investment at below 200. 
 
-Investors generally prefer to play it safe, with the majority of average investment at below 2000. Some loans, however, were able to convince investors to put up a larger investment. Perhaps, these loans promised greater return at lower risk.
+Some loans, however, were able to convince investors to put up a larger investment. Perhaps, these loans promised greater return at lower risk.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(loan.data, aes(MonthlyLoanPayment)) + 
@@ -469,10 +488,11 @@ ggplot(loan.data, aes(IncomeRange)) +
 
 So instead of factoring in the DebtToIncomeRatio, I will incorporate the IncomeRange, because I know, no matter where I look at, chances are that the loan amount will only be around 1% of the borrower's income.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, fig.height=6, fig.width=8, message=FALSE, warning=FALSE}
 ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
   geom_jitter(aes(color = as.factor(Term)), alpha = 0.5, size = 0.2) +
-  xlab('Expected Payment')
+  xlab('Expected Payment') +
+  guides(color = guide_legend(override.aes = list(size= 5)))
 ```
 
 The longer the terms, the higher the expectation. There are 2 kinds of investment practice depicted in this graph:
@@ -488,14 +508,20 @@ loan.data <- loan.data %>%
                                       "GroupB", "GroupA"))
 ```
 
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
   geom_jitter(aes(color = InvestmentType), alpha = 0.5, size = 0.2) +
-  xlab('Expected Payment')
+  xlab('Expected Payment') +
+  geom_abline(slope = 0.5, intercept = 0, color = 'orange', size = 1) +
+  guides(color = guide_legend(override.aes = list(size= 5)))
 ```
 
-I visualized them so that viewers could get a clear picture of the 2 groups.
+I categorized investments by using the ratio of AvgInvestmentAmount to Expected Payment:
+
+- Less than or equal to 0.5: Group A, where loans are financed by many investors.
+- Larger than 0.5: Group B, where loans are financed by a few investors.
+
+I also visualized the border between the 2 groups using the orange line. 
 
 ```{r, echo = FALSE}
 # Re-arrange IncomeRange's factor
@@ -504,10 +530,11 @@ loan.data$IncomeRange <- factor(loan.data$IncomeRange,
                                 [c(7, 8, 1, 2, 4:6, 3)])
 ```
 
-```{r, echo = FALSE, fig.height=16, fig.width=14}
+```{r, echo = FALSE, fig.height=14, fig.width=12}
 ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
   geom_jitter(size = 0.5, aes(color = as.factor(Term))) +
-  facet_grid(IncomeRange ~ .) 
+  facet_wrap(~ IncomeRange, ncol = 2) +
+  guides(color = guide_legend(override.aes = list(size= 10)))
 ```
 
 Group B investors are more sensitive to the income level, and they generally prefer to lend to people with higher income. 
@@ -548,30 +575,6 @@ Group A's investors generally go for smaller loan, with higher expectation.
 
 #### Plot 1
 
-I tried to ascertain the meaning of loan status. I wanted to know about the thing that set these status apart.
-
-```{r, fig.height=7, fig.width=10, message=FALSE, warning=FALSE, echo=FALSE}
-ggplot(loan.data, aes(LoanStatus, LP_CustomerPayments - LoanOriginalAmount)) + 
-  geom_boxplot(fill = 'forestgreen', color = 'tomato') +
-  theme(panel.background = element_rect(fill = 'white'),
-        panel.grid.major = element_line(colour = "gray87"),
-        axis.text.x = element_text(angle = 90, hjust = 1)) +
-  xlab("Loan Status") +
-  ylab("USD") +
-  ggtitle("DIFFERENCES BETWEEN BORROWER'S PAYMENTS AND ORIGINAL 
-  LOAN AMOUNT BETWEEN DIFFERENT GROUP OF LOAN STATUS")
-```
-
-The lenders will get a green cashflow for a completed loan, and red for everything else.
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-loan.data %>% 
-  group_by(LoanStatus) %>% 
-  summarise(AvgCashFlow = mean(LP_CustomerPayments - LoanOriginalAmount))
-```
-
-#### Plot 2
-
 Here I was curious about the geographic distribution of loans. I wanted to see if loans were distributed evenly across country.
 
 ```{r, fig.height=7, fig.width=12, message=FALSE, warning=FALSE, echo=FALSE}
@@ -591,25 +594,101 @@ ggplot(data = loan.data.stats,
 
 Bigger States like California or Texas would have a greater number of loans. California has the highest number, partly because it's where Prosper put their headquarters, the other part, I believe, is because of California's strong economies. 
 
-#### Plot 3
+```{r}
+loan.data.stats %>% 
+  group_by(region) %>% 
+  summarise(NumberOfLoans = mean(n), Population = mean(Population)) %>% 
+  arrange(desc(NumberOfLoans)) %>% 
+  top_n(10, NumberOfLoans)
+```
+
+#### Plot 2
 
 I wanted to see if and how the prospect and the risk of the loan influenced the lender's amount of investment.
 
-```{r, fig.height=10, fig.width=12, message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=14, fig.width=12, message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
   geom_jitter(size = 0.2, aes(color = as.factor(Term))) +
-  facet_grid(IncomeRange ~ .) + 
+  facet_wrap(~ IncomeRange , ncol = 2) + 
   scale_color_discrete('Term') +
-  xlab("Expected Payment") + ylab("Amount of Investment") +
+  xlab("Expected Payment (USD)") + ylab("Amount of Investment (USD)") +
   ggtitle("RELATIONSHIP BETWEEN PROSPECT, RISK AND AMOUNT OF INVESTMENT") +
   theme(panel.background = element_rect(fill = 'white'),
-        panel.grid.major = element_line(colour = "white"))
+        panel.grid.major = element_line(colour = "white")) +
+  guides(color = guide_legend(override.aes = list(size= 10)))
 ```
 
-There is 2 type of investments:
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+loan.data %>% 
+  filter(MonthlyLoanPayment > 0) %>% 
+  group_by(Term) %>% 
+  summarise(AverageLoanAmount = mean(LoanOriginalAmount),
+            AverageExpectedPayment = mean(MonthlyLoanPayment * Term),
+            ExpectedROI = mean((MonthlyLoanPayment * Term - LoanOriginalAmount) 
+                                        / LoanOriginalAmount))
+```
 
-- Higher risk, higher expectation, spreaded across many small invesments.
-- Lower risk, lower expectation, focused on key loans.
+The risk is represented by 2 factors, one of them is the term. Longer Terms are perceived as more risky, therefore investors generally expect a better ROI from them.
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+loan.data %>% 
+  group_by(IncomeRange) %>% 
+  summarise(AvgLoanAmount = mean(LoanOriginalAmount),
+            AvgInvestmentAmount = mean(AvgInvestmentAmount), 
+            ExpectedROI = mean((MonthlyLoanPayment * Term - LoanOriginalAmount) 
+                                        / LoanOriginalAmount))
+```
+
+Another factor that represented the risk is the income. The borrower's income is directly proportional with the average loan and investment amount, the higher their income, the larger the average investment amount.
+
+On the other hand, expected return on investment is inversely proportional with the average investment amount. The lower the income, the lower the average investment amount and the higher the expectation.
+
+#### Plot 3
+
+The plot showed 2 clear different investment patterns. Here I digged in and search for the characteristics of these pattern.
+
+```{r, echo=FALSE, fig.height=7, fig.width=9, message=FALSE, warning=FALSE}
+ggplot(loan.data, aes(MonthlyLoanPayment * Term, AvgInvestmentAmount)) + 
+  geom_jitter(aes(color = InvestmentType), alpha = 0.5, size = 0.2) +
+  scale_color_discrete('Term') +
+  geom_abline(slope = 0.5, intercept = 0, color = 'orange', size = 1) +
+  xlab("Expected Payment (USD)") + ylab("Amount of Investment (USD)") +
+  ggtitle("DIFFERENCES BETWEEN TYPE OF INVESTMENTS") +
+  theme(panel.background = element_rect(fill = 'white'),
+        panel.grid.major = element_line(colour = "white")) +
+  guides(color = guide_legend(override.aes = list(size= 10)))
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+loan.data %>% 
+  filter(!is.na(DebtToIncomeRatio) & !is.na(CreditScoreRangeUpper)) %>% 
+  group_by(InvestmentType) %>% 
+  summarise(AvgInvestmentAmount = mean(AvgInvestmentAmount),
+            AvgDebtToIncomeRatio = mean(DebtToIncomeRatio),
+            AvgCreditGrade = mean(CreditScoreRangeUpper),
+            AvgIncome = mean(StatedMonthlyIncome))
+```
+
+Investment are categorized into 2 groups based on the ratio of average investment amount to the expected payment. 
+
+3 factors were used to measure the risk, and in all 3 of them, group B outdid group A:
+
+- Group A: Small average investment amount, higher risk, higher expected ROI.
+- Group B: Large average investment amount, lower risk, lower expected ROI.
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+loan.data %>% 
+  filter(!is.na(DebtToIncomeRatio)) %>% 
+  group_by(InvestmentType) %>% 
+  summarise(AvgInvestmentAmount = mean(AvgInvestmentAmount),
+            ExpectedROI = mean((MonthlyLoanPayment * Term - LoanOriginalAmount) 
+                                        / LoanOriginalAmount)) %>% 
+  mutate(ExpectedPayment = ExpectedROI * AvgInvestmentAmount)
+```
+
+Given a same amount of investment capital, loans from group A will return a much higher profit than group B, that is, however, under the expectation that all loans return profit, which clearly is not.
+
+Way I see it, investments from group B are most probably chosen by experienced investors, who have the knowledge to look for better loans, with low risk and great returns. 
 
 The results are questionable, of course, because there wasn't any recording the investor's investment, making it impossible to determine if these 2 mentioned above type of investments are individual-based or situation-based.
 
