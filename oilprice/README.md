@@ -1,4 +1,4 @@
-![alt tag](https://cloud.githubusercontent.com/assets/10266642/20295049/3624d070-ab35-11e6-8951-8d22edc530ea.png)
+![alt tag](https://cloud.githubusercontent.com/assets/10266642/23366099/14dd0f04-fd38-11e6-82b8-d8cbd8268f20.png)
 
 This should be the most accurately plot that I could draw. Although this plot could show just how overprice
 the Vietnam’s petrol are compared to the US’s, I believe that it is not all there is to it.
