@@ -1,9 +1,12 @@
 ---
 title: "Exploratory Data Analysis on Loan Data from Prosper"
 author: "LinhNguyen"
-date: "Thursday, November 17, 2016"
+date: "Wednesday, January 25, 2017"
 output:
-  html_document: default
+  html_document:
+    toc: TRUE
+    toc_depth: 3
+    toc_float: true
   pdf_document: default
   word_document: default
 ---
@@ -39,7 +42,8 @@ str(loan.data)
 ```
 
 
-## PART I
+# PART I:
+
 ### 1. What are the differences in term of profitability between status in LoanStatus?
 
 ```{r Original LoanStatus, echo=FALSE, fig.height=7, fig.width=10, message=FALSE, warning=FALSE}
@@ -411,7 +415,7 @@ ggplot(data = loan.data.stats,
 
 Bigger States like California or Texas would have a greater number of loans. California has the highest number, partly because it's where Prosper put their headquarters, the other part, I believe, is because of California's strong economies. 
 
-## PART II:
+# PART II:
 
 In this part of the analysis, I want to see if and how investors rationalize the amount of investment, to be more specific, how will the prospect and the risk of the loan influence the lender's investment amount?
 
@@ -571,9 +575,9 @@ loan.data %>%
 Group A's investors generally go for smaller loan, with higher expectation.
 
 
-## FINAL PLOTS AND SUMMARY
+# FINAL PLOTS AND SUMMARY
 
-#### Plot 1
+### Plot 1
 
 Here I was curious about the geographic distribution of loans. I wanted to see if loans were distributed evenly across country.
 
@@ -602,7 +606,7 @@ loan.data.stats %>%
   top_n(10, NumberOfLoans)
 ```
 
-#### Plot 2
+### Plot 2
 
 I wanted to see if and how the prospect and the risk of the loan influenced the lender's amount of investment.
 
@@ -643,7 +647,7 @@ Another factor that represented the risk is the income. The borrower's income is
 
 On the other hand, expected return on investment is inversely proportional with the average investment amount. The lower the income, the lower the average investment amount and the higher the expectation.
 
-#### Plot 3
+### Plot 3
 
 The plot showed 2 clear different investment patterns. Here I digged in and search for the characteristics of these pattern.
 
