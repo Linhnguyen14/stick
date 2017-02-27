@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Project_Enron</title>
+<title>Identify Fraud from Enron Email</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -11804,10 +11804,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">feature_format</span> <span class="kn">import</span> <span class="n">featureFormat</span><span class="p">,</span> <span class="n">targetFeatureSplit</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">feature_format</span> <span class="kn">import</span> <span class="n">featureFormat</span>
 
 <span class="n">data_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;final_project_dataset.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="p">)</span>
 
@@ -11828,7 +11828,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s1">&#39;Total number of data points: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_dict</span><span class="p">))</span>
@@ -11866,7 +11866,7 @@ Number of features used: 16
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">data_avail</span> <span class="o">=</span> <span class="p">{}</span>
@@ -11885,7 +11885,7 @@ Number of features used: 16
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11926,7 +11926,7 @@ Number of features used: 16
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">features_with_many_nan</span> <span class="o">=</span> <span class="mi">0</span>
@@ -11985,7 +11985,7 @@ Features with many missing values: 7
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">prepare_plotting_data</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">features_list</span><span class="p">):</span>
@@ -12730,7 +12730,7 @@ tFQKuoiIiIiIiJZKQRcREREREdFSKegiIiIiIiJa6v8AZRDsk7TiawkAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">outliers_identifier</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
@@ -12778,7 +12778,7 @@ tFQKuoiIiIiIiJZKQRcREREREdFSKegiIiIiIiJa6v8AZRDsk7TiawkAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Add id to the data_dict</span>
@@ -13647,7 +13647,7 @@ RK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Pivot to wide pandas using &#39;id&#39;, &#39;feature&#39; and &#39;value&#39;. &#39;poi&#39; is </span>
@@ -13692,7 +13692,7 @@ RK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">targetFeatureSplit</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -13731,7 +13731,7 @@ RK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">Imputer</span>
@@ -13750,7 +13750,7 @@ RK5CYII=
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13768,32 +13768,33 @@ RK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There are 145 data points. Certainly not that big, but not too small, either.</p>
-<p>For validation, I'm going to save 30% of the data set. Later on, I will use these as the testing data to make sure that the model wasn't overfitted.</p>
-<p>I'm going to try a lot of parameters combination to make the most of the algorithms, k-fold cross-validation will be used to validate these parameters tuning.</p>
+<p>The data set are small, increasing the chances of overfitting. In this kind of circumstances, a dedicated testing set will only make it worst:</p>
+
+<pre><code>- Smaller training data, futher increasing the chances of overfitting.
+- Small testing data, not enough to cover all the possibilities.
+
+</code></pre>
+<p>Therefore, the traditional train test split or nested cross validation is a no go, since using them will also mean that I will have to seperate part of the data for future testing.</p>
+<p>Choose the algorithm and tune the parameters:</p>
+
+<pre><code>- 30 folds cross validation, using all the data available.
+- F1 score will be used as the metrics to determine the performance of models 
+and parameters. 
+
+Recall score might be a sounded one in the beginning, but it carries a lot of 
+bias with it. For an instance, the model with the highest recall score is the
+one who predict everything as person of interest.
+
+</code></pre>
+<p>Estimate the performance of the chosen model:</p>
+
+<pre><code>- 1000 folds Stratified ShuffleSplit cross-validation
+- The total precision and recall rate must be higher than 30%
+- The precision and recall rate for class '1.0' must not be '0.0', since 
+class '1.0' are the interested class.</code></pre>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="n">train_features</span><span class="p">,</span> <span class="n">test_features</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">cleaned_features</span><span class="p">,</span> 
-                                                 <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> 
-                                                 <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="n">train_labels</span><span class="p">,</span> <span class="n">test_labels</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">cleaned_labels</span><span class="p">,</span> 
-                                             <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> 
-                                             <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -13801,24 +13802,25 @@ RK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are a lot of algorithms avaiable, so I will just try a lot.</p>
-
-<pre><code>- A pipeline are constructed and put in a function to help move things forward easier.
-- SelectKBest are used to find the meaningful features.
-- GridSearchCV are used to fine-tuning the parameters for the algorithms and to find the best combination of features.
-- The test data are then used to test the model.</code></pre>
+<ul>
+<li>A pipeline are constructed and put in a function to help move things forward easier.</li>
+<li>SelectKBest are used to find the meaningful features.</li>
+<li>GridSearchCV are used to fine-tuning the parameters for the algorithms and to find the best combination of features.</li>
+<li>Print best score for assessment. Without any special circumstances, the algorithm with the highest score should be chosen.</li>
+</ul>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
-<span class="kn">from</span> <span class="nn">sklearn.grid_search</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 <span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
 
 <span class="k">def</span> <span class="nf">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -13826,14 +13828,14 @@ RK5CYII=
 <span class="sd">    the model and print the results</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
             <span class="p">(</span><span class="s1">&#39;features_selection&#39;</span><span class="p">,</span> <span class="n">SelectKBest</span><span class="p">()),</span>
             <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">)])</span>
-    <span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> 
-                      <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;recall&#39;</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_features</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cv</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                      <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;f1&#39;</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cleaned_features</span><span class="p">,</span> <span class="n">cleaned_labels</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_score_</span>
+    <span class="k">return</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_estimator_</span>
 </pre></div>
 
 </div>
@@ -13841,36 +13843,15 @@ RK5CYII=
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Expected result:</p>
-
-<pre><code>- The total precision and recall rate must be higher than 50%
-- The precision and recall rate for class '1.0' must not be '0.0', since class '1.0' are the interested class.
-- Recall are priotized over Precision, especially the recall for class '1.0' In this context, I am not trying to advoid
-faming innocents, I am trying to identify all the possible person_of_interest. The polices will continue the work and 
-the court will determine if they are at fault or not.</code></pre>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesClassifier</span>
-
-<span class="n">method</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">()</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-                  <span class="n">classifier__n_estimators</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
-                  <span class="n">classifier__min_samples_split</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-                  <span class="n">classifier__min_samples_leaf</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-
-<span class="n">ett</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="n">method</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">18</span><span class="p">))</span>
+<span class="n">gnb_clf</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13883,13 +13864,111 @@ the court will determine if they are at fault or not.</code></pre>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
+<pre>0.372413793103
+</pre>
+</div>
+</div>
 
-        0.0       0.93      1.00      0.96        38
-        1.0       1.00      0.50      0.67         6
+</div>
+</div>
 
-avg / total       0.94      0.93      0.92        44
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesClassifier</span>
 
+<span class="n">method</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">()</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">14</span><span class="p">),</span>
+                  <span class="n">classifier__criterion</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">],</span>
+                  <span class="n">classifier__n_estimators</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+                  <span class="n">classifier__min_samples_split</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                  <span class="n">classifier__min_samples_leaf</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                  <span class="n">classifier__class_weight</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">])</span>
+
+<span class="n">ett_clf</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.333333333333
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+
+<span class="n">method</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                  <span class="n">classifier__n_estimators</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+                  <span class="n">classifier__min_samples_split</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                  <span class="n">classifier__min_samples_leaf</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">rfc_clf</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.28275862069
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+<span class="n">method</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">()</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">18</span><span class="p">),</span>
+                  <span class="n">classifier__C</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
+                  <span class="n">classifier__kernel</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;poly&#39;</span><span class="p">,</span><span class="s1">&#39;rbf&#39;</span><span class="p">])</span>
+                  
+<span class="n">svm_clf</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.289655172414
 </pre>
 </div>
 </div>
@@ -13903,14 +13982,15 @@ avg / total       0.94      0.93      0.92        44
 <div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-
-<span class="n">method</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-                  <span class="n">classifier__n_estimators</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
-                  <span class="n">classifier__min_samples_split</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-                  <span class="n">classifier__min_samples_leaf</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-<span class="n">rfc</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="n">method</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">()</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">18</span><span class="p">),</span>
+                  <span class="n">classifier__algorithm</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ball_tree&#39;</span><span class="p">],</span>
+                  <span class="n">classifier__n_neighbors</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+                  <span class="n">classifier__leaf_size</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+                  <span class="n">classifier__weights</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">])</span>
+                  
+<span class="n">knb_clf</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13923,13 +14003,7 @@ avg / total       0.94      0.93      0.92        44
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
-
-        0.0       0.90      1.00      0.95        38
-        1.0       1.00      0.33      0.50         6
-
-avg / total       0.92      0.91      0.89        44
-
+<pre>0.227586206897
 </pre>
 </div>
 </div>
@@ -13938,15 +14012,113 @@ avg / total       0.92      0.91      0.89        44
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>GaussianNB delivered a score of 0.372413793103, which is the highest one.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
-<span class="n">method</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__k</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">gnb</span> <span class="o">=</span> <span class="n">modelling</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">StratifiedShuffleSplit</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">Imputer</span>
+
+<span class="n">PERF_FORMAT_STRING</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Accuracy: {:&gt;0.{display_precision}f}</span>
+<span class="s1">Precision: {:&gt;0.{display_precision}f}</span>
+<span class="s1">Recall: {:&gt;0.{display_precision}f}</span>
+<span class="s1">F1: {:&gt;0.{display_precision}f}</span>
+<span class="s1">F2: {:&gt;0.{display_precision}f}&#39;&#39;&#39;</span>
+<span class="n">RESULTS_FORMAT_STRING</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Total predictions: {:4d}</span>
+<span class="s1">True positives: {:4d}</span>
+<span class="s1">False positives: {:4d}</span>
+<span class="s1">False negatives: {:4d}</span>
+<span class="s1">True negatives: {:4d}&#39;&#39;&#39;</span>
+
+<span class="c1">#cleaned_features, cleaned_labels</span>
+<span class="k">def</span> <span class="nf">test_classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">folds</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">):</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">folds</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
+    <span class="n">true_negatives</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">false_negatives</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">true_positives</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">false_positives</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="ow">in</span> <span class="n">cv</span><span class="p">:</span> 
+        <span class="n">features_train</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">features_test</span>  <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">labels_train</span>   <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">labels_test</span>    <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">train_idx</span><span class="p">:</span>
+            <span class="n">features_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">features</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="p">)</span>
+            <span class="n">labels_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">labels</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="n">test_idx</span><span class="p">:</span>
+            <span class="n">features_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">features</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span> <span class="p">)</span>
+            <span class="n">labels_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">labels</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span> <span class="p">)</span>
+        <span class="c1">### fit the classifier using training set, and test on test set</span>
+        <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features_test</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">labels_test</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">prediction</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">truth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">true_negatives</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">prediction</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">truth</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">false_negatives</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">prediction</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">truth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">false_positives</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">prediction</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">truth</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">true_positives</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s2">&quot;Warning: Found a predicted label not == 0 or 1.&quot;</span>
+                <span class="k">print</span> <span class="s2">&quot;All predictions should take value 0 or 1.&quot;</span>
+                <span class="k">print</span> <span class="s2">&quot;Evaluating performance for processed predictions:&quot;</span>
+                <span class="k">break</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">total_predictions</span> <span class="o">=</span> <span class="p">(</span><span class="n">true_negatives</span> <span class="o">+</span> <span class="n">false_negatives</span> 
+                             <span class="o">+</span> <span class="n">false_positives</span> <span class="o">+</span> <span class="n">true_positives</span><span class="p">)</span>
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">*</span><span class="p">(</span><span class="n">true_positives</span> <span class="o">+</span> <span class="n">true_negatives</span><span class="p">)</span>
+                    <span class="o">/</span><span class="n">total_predictions</span><span class="p">)</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">*</span><span class="n">true_positives</span><span class="o">/</span><span class="p">(</span><span class="n">true_positives</span><span class="o">+</span><span class="n">false_positives</span><span class="p">)</span>
+        <span class="n">recall</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">*</span><span class="n">true_positives</span><span class="o">/</span><span class="p">(</span><span class="n">true_positives</span><span class="o">+</span><span class="n">false_negatives</span><span class="p">)</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">true_positives</span>
+              <span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">true_positives</span> <span class="o">+</span> <span class="n">false_positives</span><span class="o">+</span><span class="n">false_negatives</span><span class="p">))</span>
+        <span class="n">f2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">2.0</span><span class="o">*</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">precision</span><span class="o">*</span><span class="n">recall</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span>
+        <span class="k">print</span> <span class="n">clf</span>
+        <span class="k">print</span> <span class="p">(</span><span class="n">PERF_FORMAT_STRING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> 
+                                         <span class="n">precision</span><span class="p">,</span> 
+                                         <span class="n">recall</span><span class="p">,</span> 
+                                         <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> 
+                                         <span class="n">display_precision</span> <span class="o">=</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="k">print</span> <span class="p">(</span><span class="n">RESULTS_FORMAT_STRING</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_predictions</span><span class="p">,</span> 
+                                            <span class="n">true_positives</span><span class="p">,</span> 
+                                            <span class="n">false_positives</span><span class="p">,</span> 
+                                            <span class="n">false_negatives</span><span class="p">,</span> 
+                                            <span class="n">true_negatives</span><span class="p">))</span>
+        <span class="k">print</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s2">&quot;Got a divide by zero when trying out:&quot;</span><span class="p">,</span> <span class="n">clf</span>
+        <span class="k">print</span> <span class="s2">&quot;Precision or recall may be undefined due to a lack of true positive predicitons.&quot;</span>
+        <span class="k">print</span> <span class="n">true_positives</span>
+        <span class="k">print</span> <span class="n">true_negatives</span>
+        <span class="k">print</span> <span class="n">false_negatives</span>
+        <span class="k">print</span> <span class="n">false_positives</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">test_classifier</span><span class="p">(</span><span class="n">gnb_clf</span><span class="p">,</span> <span class="n">cleaned_features</span><span class="p">,</span> <span class="n">cleaned_labels</span><span class="p">,</span> <span class="n">folds</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13959,12 +14131,17 @@ avg / total       0.92      0.91      0.89        44
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
-
-        0.0       0.95      1.00      0.97        38
-        1.0       1.00      0.67      0.80         6
-
-avg / total       0.96      0.95      0.95        44
+<pre>Pipeline(steps=[(&#39;scaler&#39;, StandardScaler(copy=True, with_mean=True, with_std=True)), (&#39;features_selection&#39;, SelectKBest(k=11, score_func=&lt;function f_classif at 0x08C22470&gt;)), (&#39;classifier&#39;, GaussianNB(priors=None))])
+Accuracy: 0.93560
+Precision: 0.94188
+Recall: 0.55100
+F1: 0.69527
+F2: 0.60087
+Total predictions: 15000
+True positives: 1102
+False positives:   68
+False negatives:  898
+True negatives: 12932
 
 </pre>
 </div>
@@ -14080,8 +14257,10 @@ The emails also came with all shapes and flavours, so it might be a mess to pars
 <p>Add additional information to the text_dict:</p>
 
 <pre><code>- Poi status: If the person is identified as poi.
-- Identifier: Assigned another unique id to the key, this id will be used as the name for storage file later on. 
-The email can't be used for this, for most often than not, it will contain special chars, easier to just have another set of unique id.</code></pre>
+- Identifier: Assigned another unique id to the key, this id will be used 
+as the name for storage file later on. 
+The email can't be used for this, for most often than not, it will contain 
+special chars, easier to just have another set of unique id.</code></pre>
 
 </div>
 </div>
@@ -14180,6 +14359,29 @@ The email can't be used for this, for most often than not, it will contain speci
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">contents</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">poi</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;poi.csv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">readfile</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">readfile</span><span class="p">):</span>
+        <span class="n">poi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="c1">#poi.append(csv.reader(readfile))</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;contents.csv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">readfile</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">readfile</span><span class="p">):</span>
+        <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -14188,35 +14390,6 @@ The email can't be used for this, for most often than not, it will contain speci
 <h4 id="2.-MODELLING">2. MODELLING<a class="anchor-link" href="#2.-MODELLING">&#182;</a></h4>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Like earlier, save 30% of the dataset for testing.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="n">contents_train</span><span class="p">,</span> <span class="n">contents_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> 
-                                                 <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> 
-                                                 <span class="n">stratify</span><span class="o">=</span><span class="n">poi</span><span class="p">)</span>
-
-<span class="n">poi_train</span><span class="p">,</span> <span class="n">poi_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">poi</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> 
-                                       <span class="n">stratify</span><span class="o">=</span><span class="n">poi</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -14264,14 +14437,14 @@ The email can't be used for this, for most often than not, it will contain speci
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Created a pipeline to make things easier</p>
+<p>The first step, just like with structured data, is to identify a reasonable classifier using cross-validation.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
@@ -14280,7 +14453,7 @@ The email can't be used for this, for most often than not, it will contain speci
 <span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectPercentile</span>
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span>
-
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
 <span class="k">def</span> <span class="nf">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given a method (algorithm) and a tuning parameters, train </span>
@@ -14293,11 +14466,11 @@ The email can't be used for this, for most often than not, it will contain speci
             <span class="p">(</span><span class="s1">&#39;features_selection&#39;</span><span class="p">,</span> <span class="n">SelectPercentile</span><span class="p">()),</span>
             <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
         <span class="p">])</span>
-    <span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">contents_train</span><span class="p">,</span> <span class="n">poi_train</span><span class="p">)</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">contents_test</span><span class="p">)</span>
-    
-    <span class="k">print</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">poi_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
+                      <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
+    <span class="n">cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">poi</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">cv</span><span class="o">.</span><span class="n">best_score_</span>
+    <span class="k">return</span> <span class="n">cv</span><span class="o">.</span><span class="n">best_estimator_</span>
 </pre></div>
 
 </div>
@@ -14307,12 +14480,12 @@ The email can't be used for this, for most often than not, it will contain speci
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
 <span class="n">method</span> <span class="o">=</span> <span class="n">MultinomialNB</span><span class="p">()</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__percentile</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__percentile</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">])</span>
 
 <span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
@@ -14326,25 +14499,23 @@ The email can't be used for this, for most often than not, it will contain speci
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>E:\Work\Education\Anacondaa\lib\site-packages\sklearn\metrics\classification.py:1074: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
-  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
-
-        0.0       0.84      1.00      0.92        27
-        1.0       0.00      0.00      0.00         5
-
-avg / total       0.71      0.84      0.77        32
-
-{&#39;features_selection__percentile&#39;: 0.01}
+<pre>0.0
 </pre>
 </div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[66]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Pipeline(steps=[(&#39;vectorizer&#39;, CountVectorizer(analyzer=u&#39;word&#39;, binary=False, decode_error=&#39;ignore&#39;,
+        dtype=&lt;type &#39;numpy.int64&#39;&gt;, encoding=u&#39;utf-8&#39;, input=&#39;filename&#39;,
+        lowercase=True, max_df=1.0, max_features=None, min_df=1,
+        ngram_range=(1, 1), preprocessor=None, stop_words=None,
+     ...lassif at 0x08E91BF0&gt;)), (&#39;classifier&#39;, MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True))])</pre>
+</div>
+
 </div>
 
 </div>
@@ -14353,13 +14524,13 @@ avg / total       0.71      0.84      0.77        32
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 <span class="n">method</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">()</span>
 <span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__percentile</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">],</span>
-                  <span class="n">classifier__n_clusters</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+                  <span class="n">classifier__n_clusters</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
                   <span class="n">classifier__max_iter</span><span class="o">=</span><span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
 
 <span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
@@ -14375,64 +14546,39 @@ avg / total       0.71      0.84      0.77        32
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
-
-        0.0       0.83      0.19      0.30        27
-        1.0       0.00      0.00      0.00         5
-        3.0       0.00      0.00      0.00         0
-        8.0       0.00      0.00      0.00         0
-        9.0       0.00      0.00      0.00         0
-
-avg / total       0.70      0.16      0.26        32
-
-{&#39;classifier__max_iter&#39;: 500, &#39;features_selection__percentile&#39;: 0.01, &#39;classifier__n_clusters&#39;: 10}
+<pre>0.0
 </pre>
 </div>
 </div>
 
+<div class="output_area"><div class="prompt output_prompt">Out[67]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Pipeline(steps=[(&#39;vectorizer&#39;, CountVectorizer(analyzer=u&#39;word&#39;, binary=False, decode_error=&#39;ignore&#39;,
+        dtype=&lt;type &#39;numpy.int64&#39;&gt;, encoding=u&#39;utf-8&#39;, input=&#39;filename&#39;,
+        lowercase=True, max_df=1.0, max_features=None, min_df=1,
+        ngram_range=(1, 1), preprocessor=None, stop_words=None,
+     ...2, n_init=10, n_jobs=1, precompute_distances=&#39;auto&#39;,
+    random_state=None, tol=0.0001, verbose=0))])</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-
-<span class="n">method</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">features_selection__percentile</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">],</span>
-                  <span class="n">classifier__n_estimators</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
-                  <span class="n">classifier__min_samples_split</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
-<span class="n">modelling_text</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Once again, hardware constraint. I could only use fold=5, for it simply taking too much time.</p>
+<p>The score was 0.0, so not much to go on, for now.</p>
 
 </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>             precision    recall  f1-score   support
-
-        0.0       0.83      0.89      0.86        27
-        1.0       0.00      0.00      0.00         5
-
-avg / total       0.70      0.75      0.72        32
-
-{&#39;features_selection__percentile&#39;: 0.01, &#39;classifier__n_estimators&#39;: 50, &#39;classifier__min_samples_split&#39;: 2}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -14455,10 +14601,13 @@ avg / total       0.70      0.75      0.72        32
 
 </code></pre>
 <p>With a stronger machine, things could be different.</p>
-<p>As for structured data, all 3 algirithms delivered good result, GaussianNB proved to be the best algorithm by delivering the highest recall rate:</p>
+<p>As for structured data, the final model used GuassianNB as the main algorithm, performing at:</p>
 
-<pre><code>- Total recall: 0.95
-- Recall for poi: 0.67</code></pre>
+<pre><code>- Accuracy: 0.93560
+- Precision: 0.94188
+- Recall: 0.55100
+- F1: 0.69527
+- F2: 0.60087</code></pre>
 
 </div>
 </div>
