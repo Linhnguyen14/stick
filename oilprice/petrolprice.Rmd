@@ -3,7 +3,9 @@ title: 'Exploratory Data Analysis: On the differences in petrol price between Vi
   and US.'
 author: "LinhNguyen"
 date: "Monday, September 05, 2016"
-output: pdf_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 Hey guys, thanks for your interest. In this analysis, I'm going to explore the different between petrol price in Vietnam and in US.
 
@@ -19,7 +21,7 @@ library(dplyr)
 library(RCurl)
 ```
 
-# THE STRATEGY
+# GENERAL STRATEGY
 
 So the idea is to let the data speak for itself:
 
@@ -39,92 +41,86 @@ http://www.petrolimex.com.vn/
 - The currency exchange rate history are taken from oanda, available at:
 https://www.oanda.com/currency/average
 
-# THE DATASETS
-
 The datasets are quite clean already, some preprocess (reformat) and we're good to go.
 
 There are a lot type of petrol availabe. I choosed Ron91 - Ron92 as the main data type for this analysis, because of popularity and the availability of the data.
 
 ```{r Vietnam petrol data}
 # Get the data from github
-oilvn <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/gasolinevn.csv"
-oilvn <- read.csv(text = getURL(oilvn))
+vn.energy.data <- ("https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/petrolvn03022017.v.1.1.csv")
+
+vn.energy.data <- read.csv(text = getURL(vn.energy.data))
 
 # Convert the format of the date column, from "str" to "date"
-names(oilvn)[1] <- "date"
-oilvn$date <- as.Date(oilvn$date, format = "%d/%m/%Y")
+names(vn.energy.data)[1] <- "date"
+vn.energy.data$date <- as.Date(vn.energy.data$date, format = "%d/%m/%Y")
 
 # Added a column containing the year of the date
-oilvn$year <- as.numeric(strftime(oilvn$date, format = "%Y"))
-head(oilvn, n = 2)
+vn.energy.data$year <- as.numeric(strftime(vn.energy.data$date, format = "%Y"))
+head(vn.energy.data, n = 2)
 ```
 
 The US petrol data contain data from 20 locations in the US, here I'm only interested in knowing the date and the price, not the location, so I will just discount all of those unnecessary detail.
 
 ```{r US petrol data}
 # US's Conventional midgrade petrol (Ron91 - Ron92)
-rawus <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/gasolineus.csv"
-oilus <- read.csv(text = getURL(rawus))
+rawus <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/petrolus03022017.csv"
+us.energy.data <- read.csv(text = getURL(rawus))
 
 # Arrange column names running from 1 to 21, since I'm not intereted in the local location.
-colnames(oilus) <- as.factor(c(1:21))
-head(oilus, n = 2)
+colnames(us.energy.data) <- as.factor(c(1:21))
+head(us.energy.data, n = 2)
 ```
 
-This dataset from oanda is the best I could get my hands on, a bit tricky to use, might created some bias because of the way I handled it, but in the long run, those bias should be nullified. For now it is good as it is, I will wrangle it later.
+This dataset from oanda is the best I could get my hands on, a bit tricky to use, might created some bias because of the way I handled it, but in the long run, those bias should be nullified. For now it is good as it is, I will handle it later.
 
 ```{r Currency exchange rate}
 # History of currency rate (USD - VND)
-curhistory <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/curhistory.csv"
+curhistory <- "https://raw.githubusercontent.com/Linhnguyen14/stick/master/oilprice/curhistory.v.1.3.csv"
 curhistory <- read.csv(text = getURL(curhistory))
 ```
 
 
-# THE DATA WRANGLING
+# DATA CLEANING
 
 The US petrol data are in wide format.
 
 First, I reformat them to the more favourable long format, and while I'm at it, I also reformat  the date variable to type "date" 
 
 ```{r}
-# Wrangling with the US's petrol data
 # Turn the data from wide format to long format
-oilus <- gather(oilus,"location","price", 2:21)
-oilus <- subset(oilus, !is.na(oilus$price))
-names(oilus)[1] <- "date"
+us.energy.data <- gather(us.energy.data,"location","price", 2:21)
+us.energy.data <- subset(us.energy.data, !is.na(us.energy.data$price))
+names(us.energy.data)[1] <- "date"
 
 # Reformat the date variable (us)
-date <- as.character(oilus$date)
-oilus$date <- as.Date(date, format = "%m/%d/%Y")
-oilus$year <- as.numeric(strftime(oilus$date, format = "%Y"))
-oilus$month <- as.numeric(strftime(oilus$date, format = "%m"))
+date <- as.character(us.energy.data$date)
+us.energy.data$date <- as.Date(date, format = "%m/%d/%Y")
+us.energy.data$year <- as.numeric(strftime(us.energy.data$date, format = "%Y"))
+us.energy.data$month <- as.numeric(strftime(us.energy.data$date, format = "%m"))
 
-head(oilus)
+head(us.energy.data)
 ```
 
-Group the oilus data by date, and take the mean of the oil price, since price fluctuate from loc to loc, then assign them to a new dataframe "oilusmean"
+Group the us.energy.data data by date, and take the mean of the oil price, since price fluctuate from loc to loc, then assign them to a new dataframe "us.energy.datamean"
 
 ```{r}
-oilusmean <- oilus %>%
+us.energy.datamean <- us.energy.data %>%
   group_by(date) %>%
   summarise(mean = mean(price), sum = sum(price), n = n()) %>%
   arrange(date)
-oilusmean$year <- as.numeric(strftime(oilusmean$date, format = "%Y"))
-oilusmean$month <- as.numeric(strftime(oilusmean$date, format = "%m"))
-head(oilus)
+us.energy.datamean$year <- as.numeric(strftime(us.energy.datamean$date, format = "%Y"))
+us.energy.datamean$month <- as.numeric(strftime(us.energy.datamean$date, format = "%m"))
+head(us.energy.data)
 ```
 
 The dataset doesn't have closing price, only "bid" and "ask", so I took the mean of it. It might be a bit away from the actual data, but in the long run, the differences is too small to make it a problem.
 
-I created 2 additional columns to store the months and years data, I will be using them as matching point to join the 2 datasets oilus and curhistory together.
+I created 2 additional columns to store the months and years data, I will be using them as matching point to join the 2 datasets us.energy.data and curhistory together.
 
-
-```{r the Wrangle}
-
-
-# Wrangling the currency rate history:
+```{r}
 # Reformat the date:
-curhistory$date <- as.Date(as.character(curhistory$date), format = "%d%b%Y")
+curhistory$date <- as.Date(curhistory$date, format = "%m/%d/%Y")
 curhistory$price <- (curhistory$bid +curhistory$ask)/2
 curhistory <- subset(curhistory, select = c(date, price))
 curhistory$year <- as.numeric(strftime(curhistory$date, format = "%Y"))
@@ -136,14 +132,14 @@ curhistory <- curhistory %>%
   summarise(price = mean(price), n = n()) 
 
 # Join the petrol price with the currency rate
-oilusmean <- left_join(oilusmean, curhistory, by = c("year", "month"))
-oilus <- left_join(oilus, curhistory, by = c("year", "month"))
+us.energy.datamean <- left_join(us.energy.datamean, curhistory, by = c("year", "month"))
+us.energy.data <- left_join(us.energy.data, curhistory, by = c("year", "month"))
 
 # Translate the US's price to VNS's price
 litregallon <- 0.264172 #The rate of litre - gallon 
 #usdvnd <- 20301.50      #The exchange rate of usd - vnd
-oilusmean$priceinvnd <- oilusmean$price * oilusmean$mean * litregallon
-oilus$priceinvnd <- oilus$price.x * oilus$price.y * litregallon
+us.energy.datamean$priceinvnd <- us.energy.datamean$price * us.energy.datamean$mean * litregallon
+us.energy.data$priceinvnd <- us.energy.data$price.x * us.energy.data$price.y * litregallon
 ```
 
 # THE PLOT
@@ -159,14 +155,14 @@ It seems like, it turned out this way, mostly because the loss they took in inve
 Looking good, right?
 Too good, I'm afraid. While this plot might successfully represent the change in price of the US's petrol, it didn't do a good job, when it came to Vietnam.
 
-```{r the Plot}
-ggplot(aes(x = date, y = priceinvnd), data = subset(oilus, year >2011)) + 
+```{r the Plot, fig.height=6, fig.width=8}
+ggplot(aes(x = date, y = priceinvnd), data = subset(us.energy.data, year >2011)) + 
   geom_point(colour = "cadetblue1") +
   geom_line(aes(x = date, y = Ron.92.II.V1), 
-            data = subset(oilvn, !is.na(oilvn$Ron.92.II.V1) & year > 2011), 
+            data = subset(vn.energy.data, !is.na(vn.energy.data$Ron.92.II.V1) & year > 2011), 
             size = 1.5, colour = "firebrick") +
   geom_line(aes(x = date, y = priceinvnd), 
-            data = subset(oilusmean, !is.na(oilusmean$priceinvnd) & year > 2011),
+            data = subset(us.energy.datamean, !is.na(us.energy.datamean$priceinvnd) & year > 2011),
             size = 1, colour = "forestgreen") +
   theme(panel.background = element_rect(fill = 'white'),
         plot.background = element_rect(fill = 'white')) 
@@ -179,11 +175,13 @@ The idea is that, unlike the US's price, where we could either use a line graph 
 
 Which means, neither a line-graph nor a scatter plot could accuraely represent the movement of price in vietnam. However a modified version of the line-graph will make it, where all the line are either parallel to the horizontal or the vertical axis.
 
+
+
 ```{r}
-# Wrangle the oilvn price
 # Too much information, let's only take the data that we use, which is the Ron.92.II.V1, 
 # because we could say, that it is the most regular used petrol type in vietnam.
-oilvn <- subset(oilvn, !is.na(oilvn$Ron.92.II.V1), select = c(date,Ron.92.II.V1))
+vn.energy.data <- subset(vn.energy.data, !is.na(vn.energy.data$Ron.92.II.V1), 
+                         select = c(date,Ron.92.II.V1))
 
 # The simplest solution I could think of to solve this, is to create a line-graph that 
 # goes throw some modified version of the data point, where:
@@ -212,17 +210,17 @@ oilvn <- subset(oilvn, !is.na(oilvn$Ron.92.II.V1), select = c(date,Ron.92.II.V1)
 # That way, we could create line-graph that best visualize the reality.
 
 # Add the modified date collumn
-oilvn$date2 <- as.Date(oilvn$date) - 1
+vn.energy.data$date2 <- as.Date(vn.energy.data$date) - 1
 
 # To keep track of them, we introduced a new id collumn, which run from 1 to 107, I did
 # originally noticed the "row.names", but i don't know, tried a few times, couldn't really 
 # used it. Will invest some more time to study it, but not now.
-oilvn$id <- c(1:107)
+vn.energy.data$id <- c(1:dim(vn.energy.data)[1])
 
 # We create 2 different data.frame to manipulate the data, and will merge them together 
 # later.
-datedata <- subset(oilvn, select = c(id, date2))
-pricedata <- subset(oilvn, select = c(id, Ron.92.II.V1))
+datedata <- subset(vn.energy.data, select = c(id, date2))
+pricedata <- subset(vn.energy.data, select = c(id, Ron.92.II.V1))
 
 # We remove the first row of datedata and the last row of pricedata, then merge them 
 # together.
@@ -235,19 +233,19 @@ pricedata <- pricedata[-1,]
 dim(pricedata)
 
 # Additional manipulation to put the price dataframe in shape
-p <- subset(pricedata, id ==107)
+p <- subset(pricedata, id ==dim(pricedata)[1])
 p[1,2] <- NA
 pricedata$id <- pricedata$id - 1
 pricedata <- rbind(pricedata, p)
 
 # Merge the date and the price data together
-petrovn <- merge(datedata,pricedata, by = "id")
-names(petrovn)[2] <- "date"
+vn.petro.price <- merge(datedata,pricedata, by = "id")
+names(vn.petro.price)[2] <- "date"
 
 # Merge it with the original oil data set, then holy Marie, think its pretty much the end.
-oilvn <- subset(oilvn, select = c(date, Ron.92.II.V1))
-petrovn <- bind_rows(petrovn, oilvn)
-petrovn$year <- as.numeric(strftime(petrovn$date, format = "%Y"))
+vn.energy.data <- subset(vn.energy.data, select = c(date, Ron.92.II.V1))
+vn.petro.price <- bind_rows(vn.petro.price, vn.energy.data)
+vn.petro.price$year <- as.numeric(strftime(vn.petro.price$date, format = "%Y"))
 
 ```
 
@@ -265,19 +263,19 @@ Putting that aside, this plot was able to show that:
 - One assumption, is that it all started, with the 2009 crisis, it hit petrolimex hard, and they had to ramp up the petrol price to make up for the lost incurred by bad investments.
 
 
-```{r}
-ggplot(aes(x = date, y = priceinvnd), data = subset(oilus, year > 2011)) + 
-  geom_point(colour = "palegreen") +
+```{r, fig.height=7, fig.width=10}
+ggplot(aes(x = date, y = priceinvnd), data = subset(us.energy.data, year > 2005)) + 
+  geom_point(colour = "gray90", size = 0.8) +
   geom_line(aes(x = date, y = priceinvnd), 
-            data = subset(oilusmean, !is.na(oilusmean$priceinvnd) & year > 2011),
-            size = 1, colour = "forestgreen") +
+            data = subset(us.energy.datamean, 
+                          !is.na(us.energy.datamean$priceinvnd) & year > 2005),
+            size = 1, colour = "gray80") +
   geom_line(aes(x = date, y = Ron.92.II.V1),
-            data = subset(petrovn, year > 2011), 
-            size = 1.5, colour = "firebrick")+
+            data = subset(vn.petro.price, !is.na(vn.petro.price$Ron.92.II.V1)),
+            size = 1.3, colour = "tomato")+
   theme(panel.background = element_rect(fill = 'white'),
         plot.background = element_rect(fill = 'white')) +
   ylab("Petrol price in VND") +
-  xlab("Year")
-
+  xlab("Year")+
+  ggtitle("DIFFERENCES IN PETROL PRICE")
 ```
-
