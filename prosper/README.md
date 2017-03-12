@@ -1,3 +1,6 @@
+Part 1: EDA - Loan_Data (R)
+Part 2: Modellings - PredictInvestors (Python)
+
 
 ![alt tag](https://cloud.githubusercontent.com/assets/10266642/23363730/a731bea4-fd2e-11e6-9320-069cf747cd9d.png)
 
@@ -24,11 +27,11 @@ I saved 25% of the data for testing, and put all the training data available to 
 
 The training data was then separated based on group and used to train regression models for the 2 different groups.
 
-![alt tag](https://cloud.githubusercontent.com/assets/10266642/23798827/d9d5fdfe-05d8-11e7-9f3a-294c6acaebac.JPG)
+![alt tag](https://cloud.githubusercontent.com/assets/10266642/23798831/dbb64f48-05d8-11e7-803b-3d0a3a6e1279.JPG)
 
 The test data was separated based on the group predictions.
 
-![alt tag](https://cloud.githubusercontent.com/assets/10266642/23798831/dbb64f48-05d8-11e7-803b-3d0a3a6e1279.JPG)
+![alt tag](https://cloud.githubusercontent.com/assets/10266642/23798827/d9d5fdfe-05d8-11e7-9f3a-294c6acaebac.JPG)
 
 The test data was further separated, into true postive prediction, and false prediction (everything else). 
 Then I put them in the model and evaluate the result.
